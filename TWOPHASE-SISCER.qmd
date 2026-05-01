@@ -1,0 +1,268 @@
+---
+title: "Design and Analysis of Two-Phase Studies"
+author: "Thomas Lumley"
+format: 
+  revealjs:
+      slide-number: true
+---
+
+## Outline
+
+### Day 1, Session 1
+
+-	Introduction to two-phase sampling
+-	Survey package 
+-	Raking of weights
+
+
+### Day 1, Session 2
+
+-	Fitting regression models in two-phase data
+-	Influence functions and imputation for raking
+- Connections to AIPW estimation
+
+---
+
+### Day 2, Session 1
+
+- Optimal sampling for two-phase designs
+- Neyman allocation and influence functions
+- Strata vs individual probabilities
+- Multiparameter optimisation
+
+### Day 2, Session 2
+
+- Multiwave designs
+- Analysis approaches beyond weighting
+- Discussion and wrap-up
+
+---
+
+### Session structure
+
+First three sessions:
+
+- 45 min lecture
+- 30 min exercise 
+- 15 min discussion.
+
+(no exercises in last session)
+
+---
+
+## Introduction
+
+Me: 
+
+- theoretical biostatistician based in Auckland, New Zealand
+- part of Bryan Shepherd/Pamela Shaw research group 
+- sings baritone
+
+
+You?
+
+## Two-phase sampling
+
+- Phase 1: take a sample of $N$ ($\pi_{1,i}$) 
+    - (or pretend your cohort/database is a sample)
+
+- Phase 2: take a subsample of $n$ ($\pi_{2|1,i}$) 
+    - phase-2 sampling probabilities can depend on any phase-1 data
+
+Weight using reciprocal of $\pi^*_i=\pi_{1,i}\pi_{2|1,i}$
+
+**Q:** Why is this **not** the probability $i$ is in the subsample?
+
+
+---
+
+## Nested case-control
+
+Binary outcome $Y$ measured on whole cohort
+
+Stratified sampling: all cases, same number of controls
+
+Measure exposure $X$ on cases, controls
+
+## Case-cohort
+
+Sample $m$ people from cohort and measure $X$
+
+Also measure $X$ on everyone who has an event
+
+## Measurement-error
+
+Measure $Y$ and error-prone variable $A$ on whole cohort
+
+- subsample same number from each cell of $A\times Y$
+- measure true $X$ on subsample
+
+## EHR data
+
+Measure $Y$ and *many* $Z$, $A$ on whole cohort
+
+- subsample small number of people to validate against clinical notes
+- measure many $X$ on subsample
+
+
+## General case
+
+- Want to fit $Y\sim X+Z$
+- Measure $Z$, $A$, perhaps $Y$ on everyone
+- Measure $X$ on the subsample
+- $R$ is subsampling indicator
+
+Sometimes $A$ predicts $X$ well, sometimes not
+
+Sometimes $Z,A$ is high-dimensional, sometimes not
+
+Sometimes $X$ is high-dimensional, sometimes not
+
+*We will usually take $\pi_{i,1}$ to be constant: iid sample at phase 1*
+
+# Inference and computation
+
+
+## Weighting
+
+$w_i=1/{\pi^*_i}$ or $1/\pi_{2|1,i}$ are *design* or *grossing-up weights*
+
+Person $i$ in the subsample **represents** $w_i$ people in the population/cohort.
+
+$$E[\color{red}{w_iR_i}]=E\left[\frac{R_i}{\pi_i^*}\right]=1$$
+**We can put $\color{red}{w_iR_i}$ into any sum over $i=1,\dots,N$ to get a weighted sample version**
+
+Unlike most surveys, we (typically) don't have non-response
+
+
+
+## Two levels of randomness
+
+Cohort was random: we would have (?model) uncertainty even with complete data
+
+Subsample is random: we have pure sampling uncertainty
+
+## Totals
+
+Whole-cohort total (*census parameter*): 
+$\tilde{T}_X=\sum_{i=1}^N X_i$
+
+Estimator: $\hat T_X=\sum_{i=1}^N \color{red}{w_iR_i} X_i$
+
+$$\mathrm{var}[\hat T_X]= \mathrm{var}[E[\hat T_X|\text{phase 1}]]+E[\mathrm{var}[\hat T_X|\text{phase 1}]]$$
+First term is full-cohort $\mathrm{var}[\tilde T_X]$, second is sampling variance
+
+## Using the whole cohort
+
+We have $Y, Z, A$ on $N-n$ unsampled people. 
+
+Define raking variables $H_i=H(Y,Z,A)$ and compute raking adjustments $g_i$ so that
+
+$$\sum_{i=1}^N \color{blue}{g_iw_iR_i}H_i=\sum_{i=1}^N H_i$$
+
+- There is *no* subsampling error in $\sum_{i=1}^N \color{blue}{g_iw_iR_i}H_i$
+- There is *reduced* subsampling error for anything correlated with $H_i$
+
+---
+
+### Impact
+
+Before raking
+
+$$\text{var}[\hat T_X]=\sum_{i,j=1}^n w_iX_i\,w_jX_j\,\text{cov}[R_i,R_j]$$
+
+After raking 
+
+$$\mathrm{var}[\hat T_X]=\sum_{i,j=1}^n w_ie_i\,w_je_j\,\mathrm{cov}[R_i,R_j]$$
+
+where $e_j$ are **residuals** from regressing $X$ on $H$
+
+---
+
+## Computation
+
+```
+library(survey)
+cc_design<-twophase(id=list(~1,~1), 
+    strata=list(NULL, ~y), 
+    subset=~in_sample,
+    data=data)
+```
+
+
+
+# Excercises
+
+# Discussion
+
+# Break
+
+# Regression models
+
+## Questions
+
+- how do we do weighted estimation?
+- how do we estimate uncertainty?
+- what are good raking variables?
+- isn't it horribly inefficient?
+- why isn't it all well known?
+
+---
+
+### Subsampled history of weighted estimation
+
+- Neyman (1938): 'double sampling'
+- White (1982): two-phase sampling in epi
+- Valliant (1993): variance estimation after post-stratification
+- Binder (1983, 1996): estimating equations
+- Deville, Särndal (1992, 1993): arbitrary raking variables
+- Robins, Rotnitzky, Zhao (1994): AIPW, efficiency
+- Breslow et al (2009): "Using the whole cohort..." 
+- Lumley, Shaw, Dai (2010): Connecting the literature
+- Lumley: `survey` package implementations
+
+
+## Fitting models in two-phase samples
+
+Again: $(Y,Z,A)\mid (R,X)$
+
+For point estimates we can just put $w_i$ in the objective function
+
+$\tilde\ell(\theta)=\sum_{i=1}^N \ell_i(\theta)$ 
+
+giving the census parameter $\tilde\theta$, goes to
+
+$\hat\ell (\theta)=\sum_{i=1}^N \color{red}{w_iR_i}\ell_i(\theta)$ 
+
+giving the weighted estimator $\hat\theta$
+
+## Influence functions
+
+Suppose we can write in iid data
+$$\sqrt{N}(\tilde\theta-\theta)=\frac{1}{\sqrt{n}}\sum_{i=1}^N h(X_i,Y_i,Z_i;\theta)+o_p(1)$$
+
+$h_i=(X_i,Y_i,Z_i;\theta)$ are **influence functions**
+
+Influence functions turn any statistic into a sum!
+
+---
+
+### Examples
+
+- Regression: $h_i=n(X^TX)^{-1}x_i(y_i-x_i'\beta)$
+
+
+- If $\hat\theta$ solves $U(\theta)=\sum_i U_i(\theta)=0$ then 
+$$h_i=E\left[\frac{1}{n}\frac{\partial U}{\partial\theta}\right]^{-1}U_i(\theta)$$
+
+
+## Influence functions!
+
+- variance of $\hat\theta$ is variance of $\sum_i\color{red}{w_iR_i}h_i$
+- variance after raking projects $h_i$ orthogonal to $H_i$
+- good raking variables $H_i$ are correlated with $h_i$
+- optimal design for $\sum_i h_i$ is optimal for $\hat\theta$
+
+Everything looks like a sum!
+
+$\scriptsize \text{(not lasso, quantiles, mixed models)}$
