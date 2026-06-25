@@ -6,8 +6,8 @@
 <script src="TWOPHASE-SISCER_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="TWOPHASE-SISCER_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="TWOPHASE-SISCER_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="TWOPHASE-SISCER_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="TWOPHASE-SISCER_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Thomas Lumley">
   <title>Design and Analysis of Two-Phase Studies</title>
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -190,8 +193,13 @@ Thomas Lumley
 </ul>
 <p>You?</p>
 </section>
-<section id="two-phase-sampling" class="slide level2">
-<h2>Two-phase sampling</h2>
+<section>
+<section id="two-phase-sampling" class="title-slide slide level1 center">
+<h1>Two-phase sampling</h1>
+<p>In which we do one thing after another</p>
+</section>
+<section id="two-phase-sampling-1" class="slide level2">
+<h2>Two-<strong>phase</strong> sampling</h2>
 <ul>
 <li>Phase 1: take a sample of <span class="math inline">\(N\)</span> (<span class="math inline">\(\pi_{1,i}\)</span>)
 <ul>
@@ -244,7 +252,7 @@ Thomas Lumley
 <p>Sometimes <span class="math inline">\(Z,A\)</span> is high-dimensional, sometimes not</p>
 <p>Sometimes <span class="math inline">\(X\)</span> is high-dimensional, sometimes not</p>
 <p><em>We will usually take <span class="math inline">\(\pi_{i,1}\)</span> to be constant: iid sample at phase 1</em></p>
-</section>
+</section></section>
 <section>
 <section id="inference-and-computation" class="title-slide slide level1 center">
 <h1>Inference and computation</h1>
@@ -295,8 +303,8 @@ cc_design&lt;-twophase(id=list(~1,~1),
     subset=~in_sample,
     data=data)</code></pre>
 </section></section>
-<section id="excercises" class="title-slide slide level1 center">
-<h1>Excercises</h1>
+<section id="exercises" class="title-slide slide level1 center">
+<h1>Exercises</h1>
 
 </section>
 
@@ -307,13 +315,13 @@ cc_design&lt;-twophase(id=list(~1,~1),
 
 <section id="break" class="title-slide slide level1 center">
 <h1>Break</h1>
-
+<p>Coffee?</p>
 </section>
 
 <section>
 <section id="regression-models" class="title-slide slide level1 center">
 <h1>Regression models</h1>
-
+<p>In which a line must be drawn</p>
 </section>
 <section id="questions" class="slide level2">
 <h2>Questions</h2>
@@ -373,6 +381,140 @@ cc_design&lt;-twophase(id=list(~1,~1),
 </ul>
 <p>Everything looks like a sum!</p>
 <p><span class="math inline">\(\scriptsize \text{(not lasso, quantiles, mixed models)}\)</span></p>
+</section></section>
+<section id="bye-for-now" class="title-slide slide level1 center">
+<h1>Bye for now</h1>
+<p>Same time tomorrow</p>
+</section>
+
+<section id="optimal-design" class="title-slide slide level1 center">
+<h1>Optimal design</h1>
+<p>In which some have more chance than others</p>
+</section>
+
+<section>
+<section id="but-first" class="title-slide slide level1 center">
+<h1>But first!</h1>
+<p><strong>Questions</strong>?</p>
+</section>
+<section id="optimal-design-1" class="slide level2">
+<h2>Optimal design</h2>
+<p>Suppose we are given an population divided into <span class="math inline">\(K\)</span> strata, and one variable</p>
+<ul>
+<li>Stratum <span class="math inline">\(k\)</span> has <span class="math inline">\(N_k\)</span> people in the population</li>
+<li>a variable <span class="math inline">\(Y\)</span> has variance <span class="math inline">\(\sigma^2_k\)</span> in stratum <span class="math inline">\(k\)</span></li>
+</ul>
+<p>Want to estimate the population total (or mean) of <span class="math inline">\(Y\)</span></p>
+<p><span class="math display">\[\mathrm{var}[\hat T_Y]= \sum_k N_k^2\sigma^2_k/n_k\]</span> given <span class="math inline">\(\sum_k n_k=\text{allowed }n\)</span></p>
+</section>
+<section id="solution" class="slide level2">
+<h2>Solution</h2>
+<ul>
+<li>Continuous approximation (Neyman, 1934): <span class="math inline">\(n_k\propto N_k\sigma_k\)</span></li>
+<li>Straightforward exact algorithm (Wright, 2017)</li>
+</ul>
+<p>Optimal stratum choice is harder, but we know</p>
+<ul>
+<li>stratum all the same size</li>
+<li>stratum size=2 is ideal</li>
+<li>(post-stratification needs larger strata)</li>
+</ul>
+</section>
+<section id="regression-models-1" class="slide level2">
+<h2>Regression models</h2>
+<p>How do we translate this result to optimal design for estimating a <span class="math inline">\(\beta\)</span>? 🤔</p>
+</section>
+<section id="regression-models-2" class="slide level2">
+<h2>Regression models</h2>
+<p>How do we translate this result to optimal design for estimating a <span class="math inline">\(\beta\)</span>?</p>
+<p><strong>Influence functions!!</strong></p>
+<p><span class="math display">\[n_k\propto N_k\sigma_k\]</span></p>
+<p>where <span class="math inline">\(\sigma^2_k\)</span> is now the variance of the efficient influence function for <span class="math inline">\(\beta\)</span> in the complete cohort</p>
+</section></section>
+<section id="exercises-1" class="title-slide slide level1 center">
+<h1>Exercises</h1>
+
+</section>
+
+<section id="discussion-1" class="title-slide slide level1 center">
+<h1>Discussion</h1>
+
+</section>
+
+<section id="break-1" class="title-slide slide level1 center">
+<h1>Break</h1>
+<p>Coffee?</p>
+</section>
+
+<section>
+<section id="maximum-likelihood" class="title-slide slide level1 center">
+<h1>Maximum likelihood</h1>
+<p>In which models are the evidence of things not seen</p>
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<p>We have not been assuming the outcome model <span class="math inline">\(Y|X,Z\)</span> is correctly specified</p>
+<p>The <em>semiparametric information bound</em> is much worse if you don’t assume <span class="math inline">\(Y|X,Z\)</span> is correct</p>
+<p>Now we will look at semiparametric likelihood analyses</p>
+<ul>
+<li>The Auckland school: NPMLE for discrete phase-1 data (<code>missreg3</code>)</li>
+<li>Tao, Lin, Lotspeich <em>et al</em>: NPMLE for continuous phase-1 data and arbitrary measurement error (<code>sleev</code>)</li>
+</ul>
+</section></section>
+<section>
+<section id="general-principles" class="title-slide slide level1 center">
+<h1>General principles</h1>
+
+</section>
+<section id="analysis" class="slide level2">
+<h2>Analysis</h2>
+<p>Model assisted:</p>
+<ul>
+<li>inference is valid for misspecified models</li>
+<li>correct models give more efficient results</li>
+<li>nearly-correct models are almost as good</li>
+</ul>
+<p>Model assisted:</p>
+<ul>
+<li>correct models give large efficiency gains over weighting</li>
+<li>inference is invalid for misspecified models</li>
+<li>nearly-correct models can be seriously inferior</li>
+</ul>
+</section>
+<section id="design" class="slide level2">
+<h2>Design</h2>
+<p>Model assisted</p>
+<ul>
+<li>anything could happen where we don’t look</li>
+<li>need to sample everywhere (<span class="math inline">\(\pi&gt;0\)</span>)</li>
+<li>design is robust to small model changes</li>
+</ul>
+<p>Model-based</p>
+<ul>
+<li>the model tells us what is happening everywhere</li>
+<li>some zero sampling probabilities may be optimal</li>
+<li>design is sensitive to small model changes</li>
+</ul>
+</section>
+<section id="case-control-logistic-regression" class="slide level2">
+<h2>Case-control logistic regression</h2>
+<ul>
+<li>Model-assisted: weighted logistic regression (<code>svyglm</code>)</li>
+<li>Model-based: unweighted logistic regression (<code>glm</code>) is MLE (Prentice &amp; Pyke) and is fully efficient (Breslow, Robins, Wellner)</li>
+</ul>
+<p>Large effiency gains with model-based estimation, but mostly for strong effects of continuous covariates. Gain is sensitive to model correctness.</p>
+<p>Optimal design is roughly the same for both</p>
+</section>
+<section id="generalising-case-control" class="slide level2">
+<h2>Generalising case-control</h2>
+<p><code>missreg</code></p>
+</section>
+<section id="continuous-phase-1" class="slide level2">
+<h2>Continuous phase 1</h2>
+</section>
+<section id="sieve-estimation" class="slide level2">
+<h2>Sieve estimation</h2>
+<p><code>sleev</code></p>
 
 </section></section>
     </div>

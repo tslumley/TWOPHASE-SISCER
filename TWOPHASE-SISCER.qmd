@@ -292,6 +292,44 @@ In which some have more chance than others
 
 ## Optimal design
 
+Suppose we are given an population divided into $K$ strata, and one variable
+
+- Stratum $k$ has $N_k$ people in the population
+- a variable $Y$ has variance $\sigma^2_k$ in stratum $k$
+
+Want to estimate the population total (or mean) of $Y$
+
+$$\mathrm{var}[\hat T_Y]= \sum_k N_k^2\sigma^2_k/n_k$$
+given $\sum_k n_k=\text{allowed }n$
+
+## Solution
+
+- Continuous approximation (Neyman, 1934): $n_k\propto N_k\sigma_k$
+- Straightforward exact algorithm (Wright, 2017)
+
+Optimal stratum choice is harder, but  we know
+
+- stratum all the same size
+- stratum size=2 is ideal
+- (post-stratification needs larger strata)
+
+
+## Regression models
+
+How do we translate this result to optimal design for estimating a $\beta$? 🤔
+
+
+## Regression models
+
+How do we translate this result to optimal design for estimating a $\beta$? 
+
+
+**Influence functions!!**
+
+$$n_k\propto N_k\sigma_k$$
+
+where $\sigma^2_k$ is now the variance of the efficient influence function for $\beta$ in the complete cohort
+
 
 
 # Exercises
