@@ -61,7 +61,12 @@ Me:
 
 You?
 
-## Two-phase sampling
+# Two-phase sampling
+
+In which we do one thing after another
+
+
+## Two-**phase** sampling
 
 - Phase 1: take a sample of $N$ ($\pi_{1,i}$) 
     - (or pretend your cohort/database is a sample)
@@ -191,13 +196,17 @@ cc_design<-twophase(id=list(~1,~1),
 
 
 
-# Excercises
+# Exercises
 
 # Discussion
 
 # Break
 
+Coffee?
+
 # Regression models
+
+In which a line must be drawn
 
 ## Questions
 
@@ -266,3 +275,99 @@ $$h_i=E\left[\frac{1}{n}\frac{\partial U}{\partial\theta}\right]^{-1}U_i(\theta)
 Everything looks like a sum!
 
 $\scriptsize \text{(not lasso, quantiles, mixed models)}$
+
+
+# Bye for now
+
+Same time tomorrow
+
+
+# Optimal design
+
+In which some have more chance than others
+
+# But first!
+
+**Questions**?
+
+## Optimal design
+
+
+
+# Exercises
+
+# Discussion
+
+# Break
+
+Coffee?
+
+# Maximum likelihood
+
+In which models are the evidence of things  not seen
+
+## Agenda
+
+We have not been assuming the outcome model $Y|X,Z$ is correctly specified
+
+The *semiparametric information bound* is much worse if you don't assume $Y|X,Z$ is correct
+
+Now we will look at semiparametric likelihood analyses 
+
+- The Auckland school: NPMLE for discrete phase-1 data (`missreg3`)
+- Tao, Lin, Lotspeich *et al*: NPMLE for continuous phase-1 data and arbitrary measurement error (`sleev`)
+
+# General principles
+
+## Analysis
+
+Model assisted:
+
+- inference is valid for misspecified models
+- correct models give more efficient results
+- nearly-correct models are almost as good
+
+
+Model assisted:
+
+- correct models give large efficiency gains over weighting
+- inference is invalid for misspecified models
+- nearly-correct models can be seriously inferior
+
+
+## Design
+
+Model assisted
+
+- anything could happen where we don't look
+- need to sample everywhere ($\pi>0$)
+- design is robust to small model changes
+
+Model-based
+
+- the model tells us what is happening everywhere
+- some zero sampling probabilities may be optimal
+- design is sensitive to small model changes
+
+
+## Case-control logistic regression
+
+- Model-assisted: weighted logistic regression (`svyglm`)
+- Model-based: unweighted logistic regression (`glm`) is MLE (Prentice & Pyke) and is fully efficient (Breslow, Robins, Wellner)
+
+Large effiency gains with model-based estimation, but mostly for strong effects of continuous covariates. Gain is sensitive to model correctness.
+
+Optimal design is roughly the same for both 
+
+## Generalising case-control
+
+`missreg`
+
+
+## Continuous phase 1
+
+
+## Sieve estimation
+
+`sleev`
+
