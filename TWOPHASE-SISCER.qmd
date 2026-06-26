@@ -399,11 +399,61 @@ Optimal design is roughly the same for both
 
 ## Generalising case-control
 
+Chris Wild & Alastair Scott (*et al*)
+
+Given a model for $Y|X,Z$ and a sampling rule for $R|Y,Z,A$ we can derive sampling weights from the model and the population distribution of $Y,Z,A$ 
+
+Need discrete strata $S=Y\times A$ but not discrete $X,Z$
+
+Using these weights instead of design weights or post-stratification weights gives maximum likelihood estimates. (needs iterative maximisation)
+
+##  Eg
+
 `missreg`
 
+## Extensions
+
+- $Y$ can be continuous: need to make finite set of bins for strata
+- logistic mixed models: genetics, longitudinal
+
+## Limitations
+
+Phase 1 data 
+
+- are only used as sampling strata
+- must be discrete, low-dimensional
+- Strata must be perfect surrogates: $[Y|Z,X,S]=[Y|Z,X]$
+
+
+## Misspecification
+
+The benefit of MLE over raking is $O(n^{-1/2})$ when the model is correct, so we must also care about $O(n^{-1/2})$ biases from misspecification.
+
+These are misspecifications that are not reliably detectable: an omitted variable with $\delta/\sqrt{n}$ coefficient can be detected asymptotically with power $<1$ depending on $\delta$.
+
+Han *et al* (2021) confirmed that worst-case directions of misspecification will make the MLE less accurate than weighted estimation (for estimating the full-cohort best-fitting model.)
+
+---
+
+[picture]
+
+---
+
+Take-home message
+
+- MLE can sometimes provide large precision gains
+- Gains are sensitive to *exact* model specification (untestably good)
+- *you pays your money and you take your choice*
 
 ## Continuous phase 1
 
+- [Y|X,Z] correctly specified
+- $X$ with measurement error is an $A$
+- $Y$ with measurement error is an $A$
+- measurement error distribution is nonparametric
+- phase 1 has to be low dimensional (eg, two-d)
+
+Idea: 'sieve' estimation, *ie*, parametric models getting more complicated with $n$. Specifically, $B$-splines. 
 
 ## Sieve estimation
 
