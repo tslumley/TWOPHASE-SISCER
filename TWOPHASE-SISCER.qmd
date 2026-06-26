@@ -453,9 +453,14 @@ Take-home message
 - measurement error distribution is nonparametric
 - phase 1 has to be low dimensional (eg, two-d)
 
-Idea: 'sieve' estimation, *ie*, parametric models getting more complicated with $n$. Specifically, $B$-splines for distribution of measurement error given $A$
 
-## Sieve estimation
+## Sieve estimation: `sleev`
 
-`sleev`
+Fit parametric models getting more flexible with increasing $n$
+
+- $B$-splines for distribution of measurement errors given $A$
+- If flexibility increases at the correct rate, this works like semiparametrics
+- Risk: can be too parametric for small $n$, too much work for large $n$
+
+
 
