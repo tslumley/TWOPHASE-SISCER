@@ -214,6 +214,16 @@ svymean(~api00, dstrat2ph)
 svymean(~enroll, dstrat2ph)
 ```
 
+---
+
+```{r}
+par(mfrow=c(1,2))
+plot(api00~api99,data=apipop,col="#00000030")
+plot(enroll~api.stu,data=apipop,col="#00000030")
+
+```
+
+
 ## Use all of `api99`
 
 ```{r echo=TRUE}
@@ -239,13 +249,13 @@ svymean(~enroll, dcal2)
 
 One way to do raking is to use weighted linear regression 
 
-- impute `api00` from `api99` for everyone (no uncertainty to first order)
+- impute `api00` from `api99` **for everyone** (no uncertainty to first order)
 - $\hat X$ is a linear function of $X$, so is just reweighting
 - add Horvitz-Thompson estimator of $\texttt{api00}-\widehat{\texttt{api00}}$
 
 Variance comes from the second step, so is just variance of residuals
 
-$\mathrm{var}[\hat T_X]=\sum_{i,j=1}^n g_iw_ie_i\,g_jw_je_j\,\mathrm{cov}[R_i,R_j]$
+$$\scriptsize \mathrm{var}[\hat T_X]=\sum_{i,j=1}^n g_iw_ie_i\,g_jw_je_j\,\mathrm{cov}[R_i,R_j]$$
 
 
 ## Free lunch!
@@ -267,7 +277,7 @@ If the subsample does not have known true $\pi_i$ you can estimate the $\pi_i$ b
 
 We used single variables, but you can use any combination that predicts $X$
 
-We actually use a slightly different estimator that can't produce negative weights
+We typically use a slightly different estimator that can't produce negative weights
 
 **Multiple imputation** to do raking is valid (and actually sensible for regression: next session)
 
@@ -375,13 +385,92 @@ Good raking variables will be $h$ for some related model
 
 Raw $X$, $Y$, $Z$ will only be good for discrete (nearly-)saturated models
 
+## Good raking variables
+
+Want to fit `api00~enroll+ell+emer`
+
+If we have `enroll, ell, emer` and `api99` we could try 
+
+- raking on `api99` 
+- raking on `ell`, `emer`, `enroll`
+- raking on $\tilde h$ from `api99~enroll+ell+emer`
+
+---
+
+```{r echo=TRUE}
+data(api)
+apipop_no_na<-subset(apipop, !is.na(enroll+emer+ell))
+in_subset<- apipop_no_na$snum %in% apistrat$snum
+dstrat2ph <- twophase(id=list(~1,~1), strata=list(NULL, ~stype),
+     subset=~in_subset, data=apipop_no_na)
+model0<-svyglm(api00~enroll+ell+emer, design=dstrat2ph)
+```
+
+---
+
+```{r echo=TRUE}
+dcal_response <- calibrate(dstrat2ph, phase=2, 
+                           formula=~api99, calfun="raking")
+dcal_pred <- calibrate(dstrat2ph, phase=2, 
+                           formula=~enroll+ell+emer, calfun="raking")
+model_y<-svyglm(api00~enroll+ell+emer, design=dcal_response)
+model_x<-svyglm(api00~enroll+ell+emer, design=dcal_pred)
+```
+
+---
+
+```{r echo=TRUE}
+coef(summary(model0))
+coef(summary(model_y))
+coef(summary(model_x))
+```
+
+😞😞😞
+
+## Use influence functions
+
+```{r echo=TRUE}
+model_ph1<-glm(api99~enroll+ell+emer, data=apipop_no_na)
+apipop_no_na$h0<-resid(model_ph1)
+dstrat2inf <- twophase(id=list(~1,~1), strata=list(NULL, ~stype),
+     subset=~in_subset, data=apipop_no_na)
+dstrat2inf<-update(dstrat2inf, h1=h0*enroll, 
+                  h2=h0*ell, 
+                  h3=h0*emer)
+dcal_inf <- calibrate(dstrat2inf, phase=2, 
+                           formula=~h0+h1+h2+h3, calfun="raking")
+
+model_h<-svyglm(api00~enroll+ell+emer, design=dcal_inf)
+```
+
+We use `api99` for **everyone** in `model_ph1`, even when `api00` is known
+
+---
+
+```{r echo=TRUE}
+coef(summary(model0))
+coef(summary(model_h))
+```
+
+🎉🎉🎉
+
+## With imputation
+
+We don't usually have a single surrogate
+
+- impute $X$, (and $Y$ if needed)
+- use all phase 1 information
+- either use single $\hat h$ or average over multiple imputations $\bar h$
+
+
+
 
 ## Why isn't this well known?
 
 - Hybrid of biostat and survey sampling literature
 - Weighted estimators look inefficient
 - Not likelihood based, hard to Bayesian
-- Not well supported by software
+- Software support is recent
 
 # Bye for now
 
@@ -478,6 +567,7 @@ Helps with two problems
 
 - two waves is better than one.
 - diminishing returns with many waves, but cost is fairly small.
+- more opportunity to fix problems with more waves
 - first wave needs not to be too small
 - first wave needs not to be larger than optimal $n_k$ in any strata
 
