@@ -774,9 +774,14 @@ Synthetic version of HIV cohort from Vanderbilt University Medical Center
 ```{r echo=TRUE}
 with(mock.vccc, table(ADE_val, ADE_unval))
 with(mock.vccc, table(is.na(ADE_val), ADE_unval))
+```
+
+```{r}
 par(mfrow=c(1,2))
 plot(VL_unval~VL_val,data=mock.vccc)
+abline(0,1,lty=3,col="purple")
 plot(CD4_unval~CD4_val,data=mock.vccc)
+abline(0,1,lty=3,col="purple")
 ```
 
 ## Example
