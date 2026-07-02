@@ -283,6 +283,8 @@ We typically use a slightly different estimator that can't produce negative weig
 
 # Exercises
 
+and questions
+
 # Discussion
 
 # Break
@@ -472,6 +474,12 @@ We don't usually have a single surrogate
 - Not likelihood based, hard to Bayesian
 - Software support is recent
 
+# Exercises
+
+and questions
+
+# Discussion
+
 # Bye for now
 
 Same time tomorrow
@@ -504,9 +512,9 @@ $$\mathrm{var}[\hat T_Y]= \sum_k N_k^2\sigma^2_k/n_k$$ given $\sum_k n_k=\text{a
 
 Optimal stratum choice is harder, but we know
 
-- stratum all the same size
+- strata all the same size
 - stratum size = 2 is ideal
-- (post-stratification needs larger strata)
+- (**post-**stratification needs larger strata)
 
 ## Regression models
 
@@ -522,6 +530,8 @@ $$n_k\propto N_k\sigma_k$$
 
 where $\sigma^2_k$ is now the variance of the efficient influence function for $\beta$ in the complete cohort
 
+$\scriptsize\textit{[result is old; Chen & Lumley (2020) pointed out the influence-function connection]}$
+
 ## Imputation
 
 Estimating $\sigma_k$ for influence functions needs simulation of $X$ (?obviously)
@@ -533,7 +543,7 @@ Gives optimal design for IPW, works ok for raking
 
 ## Multiple parameters
 
-Need to reduce $\mathrm{var}[\hat\beta]$ matrix to a single metric
+Need to reduce $\mathrm{var}[\hat\beta]$ matrix to a single-number metric
 
 - A-optimal: trace
 - D-optimal: determinant
@@ -558,10 +568,11 @@ Helps with two problems
 
 ## Sampling
 
-- Impute with current $X$, all phase 1
+- We've sampled $n_k^{old}$ already
+- Impute with current $X$ and all phase 1
 - Estimate $\sigma^2_k$
-- Do Neyman-Wright allocation to get $n_k$
-- Divide $n_k-n_k^{old}$ over future waves (or zero if $n_k\leq n_k^{old}$ )
+- Do Neyman(-Wright) allocation to get $\hat n_k$
+- Divide $\hat n_k- n_k^{old}$ over future waves (or zero if $\hat n_k\leq  n_k^{old}$ )
 
 ## Choosing waves
 
@@ -570,6 +581,7 @@ Helps with two problems
 - more opportunity to fix problems with more waves
 - first wave needs not to be too small
 - first wave needs not to be larger than optimal $n_k$ in any strata
+- strata can't be too small because we are post-stratifying
 
 \[Reilly, 1996; McIsaac & Cook, 2015; Chen & Lumley 2020,2022\]
 
@@ -604,7 +616,12 @@ The Horvitz-Thompson variance estimator is $$\sum_{i,j} \frac{h_i}{\pi_i}\frac{h
 
 Under stratified sampling only within-stratum differences contribute to the total variance!!
 
+
+$\scriptsize\textit{[Yang et al (2025) does comparisons]}$
+
 # Exercises
+
+and questions
 
 # Discussion
 
@@ -739,3 +756,77 @@ Fit parametric models getting more flexible with increasing $n$
 - $B$-splines for distribution of measurement errors given $A$
 - If flexibility increases at the correct rate, this works like semiparametrics (cf regression splines)
 - Risk: can be too parametric for small $n$, too much work for large $n$
+
+## Example
+
+```{r echo=TRUE}
+library(sleev)
+data("mock.vccc")
+```
+
+Synthetic version of HIV cohort from Vanderbilt University Medical Center
+
+- $A$: CD4 count, viral load, AIDS-defining event *(with error)*
+- $X$: CD4 count, viral load, AIDS-defining event *(validated)*
+
+---
+
+```{r echo=TRUE}
+with(mock.vccc, table(ADE_val, ADE_unval))
+with(mock.vccc, table(is.na(ADE_val), ADE_unval))
+par(mfrow=c(1,2))
+plot(VL_unval~VL_val,data=mock.vccc)
+plot(CD4_unval~CD4_val,data=mock.vccc)
+```
+
+## Example
+
+Define 20-df spline basis for predicting error in `CD4_val`, then fit
+`ADE_val~CD4_val+Prior_ART` using all data and modelling measurement error
+
+```
+{r echo=TRUE, output=FALSE}
+sn <- 20
+data.logistic <- spline2ph(x = "CD4_unval", size = 20, degree = 3,
+                           data = mock.vccc, group = "Prior_ART",
+                           split_group = TRUE)
+res_logistic <- logistic2ph(y = "ADE_val", y_unval = "ADE_unval",
+                           x = "CD4_val", x_unval = "CD4_unval",
+                            z = "Prior_ART", data = data.logistic,
+                            hn_scale = 1/2, se = TRUE, tol = 1e-04,
+                            max_iter = 1000, verbose = FALSE)
+```
+
+---
+
+
+```
+{r echo=TRUE}
+summary(res_logistic)
+```
+
+---
+
+## Optimal design
+
+The optimal design for `sleev` need not have $\pi>0$
+- typically doesn't for continuous $Y$ or $X$
+
+In general not known,
+- for small $\beta$ the optimal is to sample extremes of the score function
+- sampling extremes of residuals is a good approximation
+- $\pi_i=0$ in the middle
+
+## Misspecification
+
+Optimal design is very sensitive to model specification
+
+- slight misspecification can give higher MSE from optimal design than less extreme design
+- bias is not **large** but is same size as precision gain
+
+
+# Questions?
+
+Last chance!
+
+# That's all, folks
