@@ -98,6 +98,14 @@ Measure $Y$ and error-prone variable $A$ on whole cohort
 - subsample same number from each cell of $A\times Y$
 - measure true $X$ on subsample
 
+## Heuristic oversampling
+
+- Phase 1 includes data on mother-child dyads
+- Phase 2 has measurements at 18 years, genetics
+- Research is about parent-of-origin effects
+
+Oversample dyads where birthweight or maternal weight is high or low, undersample where both are mid
+
 ## EHR data
 
 Measure $Y$ and *many* $Z$, $A$ on whole cohort
@@ -325,11 +333,11 @@ For point estimates we can just put $w_i$ in the objective function
 
 $\tilde\ell(\theta)=\sum_{i=1}^N \ell_i(\theta)$
 
-giving the census parameter $\tilde\theta$, goes to
+giving the **census parameter** $\tilde\theta$, goes to
 
 $\hat\ell (\theta)=\sum_{i=1}^N \color{red}{w_iR_i}\ell_i(\theta)$
 
-giving the weighted estimator $\hat\theta$
+giving the **weighted estimator** $\hat\theta$
 
 ## Influence functions
 
@@ -464,8 +472,117 @@ We don't usually have a single surrogate
 - use all phase 1 information
 - either use single $\hat h$ or average over multiple imputations $\bar h$
 
+## VCCC
+
+Synthetic version of HIV cohort from Vanderbilt University Medical Center
+
+- $A$: CD4 count, viral load, AIDS-defining event *(with error)*
+- $X$: CD4 count, viral load, AIDS-defining event *(validated)*
+
+Validation on simple random sample (Giganti *et al*, 2020)
+
+We use the real data, but we can't give it to you
+
+## Workflow
 
 
+- impute $X, Y$: `ADE_val`, `CD4_val` in subsample
+- predict to get `ADE_hat`, `CD4_hat` for everyone
+- fit phase-1 model `ADE_hat~CD4_hat+Prior_ART` with `hat` versions **for everyone**
+- extract influence functions
+- calibrate to influence functions
+- fit `ADE_val~CD4_val+Prior_ART` in calibrated design
+
+(see `vccc_raking.R`)
+
+## Design setup
+
+```{r echo=TRUE}
+library(survey)
+data(mock.vccc, package="sleev")
+names(mock.vccc)
+mock.vccc$validated <- !is.na(mock.vccc$VL_val)
+
+dvccc<-twophase(id=list(~1,~1), strata=list(NULL,NULL),
+  subset=~validated, data=mock.vccc)
+```
+
+## Single imputation
+
+```{r echo=TRUE}
+imp_ADE<-svyglm(
+  ADE_val~ADE_unval+VL_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age,
+  design=dvccc, family=quasibinomial)
+imp_CD4<-svyglm(
+  CD4_val~ADE_unval+VL_unval+CD4_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age,
+  design=dvccc)
+
+## phase 1 imputations
+mock.vccc$ADE_hat<-predict(imp_ADE, newdata=mock.vccc, type="response")
+mock.vccc$CD4_hat<-predict(imp_CD4, newdata=mock.vccc, type="response")
+
+## phase-1 model
+
+mphase1<-glm(ADE_hat~CD4_hat+Prior_ART, data=mock.vccc, 
+             family=quasibinomial)
+
+```
+
+## Calibrate
+
+```{r echo=TRUE}
+
+h<- survey:::estfuns(mphase1)  
+mock.vccc<-cbind(mock.vccc, h=h)
+dvccc_aug<-twophase(id=list(~1,~1), strata=list(NULL,NULL),
+  subset=~validated, data=mock.vccc)
+dvccc_cal<-calibrate(dvccc_aug,
+              formula=~`h.(Intercept)`+h.CD4_hat+h.Prior_ART,
+              phase=2,calfun="raking")
+```
+
+## Do the fit
+
+```{r echo=TRUE}
+coef(summary(svyglm(ADE_val~CD4_val+Prior_ART,design=dvccc,
+                    family=quasibinomial)))
+coef(summary(svyglm(ADE_val~CD4_val+Prior_ART,design=dvccc_cal, 
+                    family=quasibinomial)))
+```
+
+🎉🎉🎉
+
+## Notes
+
+- multiple imputation is *slightly* better
+- validity does not rely on quality of imputation
+- we can afford quite a lot of imputation/raking variables (only need $n^{-1/4}$ convergence)
+- there are no good diagnostics for how many
+- If you have `survey 4.5-2` from `r-universe` you can do 
+```
+dvccc_cal <- calibrate(dvccc, formula=mphase1, phase=2, calfun="raking")
+```
+and not have to set up `h` yourself
+
+## cf AIPW
+
+Raking solves
+$$\sum w_i R_i (U_i-\hat U_i) + \sum_i\hat U_i=0$$
+where $\hat U_i$ is the prediction from the $H_i$.
+
+Equivalently 
+$$\sum w_i R_i U_i + (1-w_iR_i)\hat U_i=0$$
+which is the AIPW form
+
+## Optimality
+
+If phase 1 is iid or srs or has large strata, the best design-consistent estimator is of the AIPW class and has $\hat U=E[U_i\mid\text{phase 1}]$
+
+Correctly specified multiple imputation for $\hat U$ will converge to this as $M\to\infty$
+
+Single imputation often isn't bad
+
+We don't have theory to characterise the optimal estimator when phase-1 is eg cluster-sampled, but raking seems to work well.
 
 ## Why isn't this well known?
 
@@ -683,6 +800,54 @@ Large efficiency gains with model-based estimation, but mostly for strong effect
 
 Optimal **design** is roughly the same for both: equal numbers of cases and controls
 
+## Efficiency gain varies
+
+$\small\text{Ille-et-Villaine case-control study: tobacco, alcohol, oesophageal cancer}$
+
+```{r}
+library(survey)
+
+## continuous data: Chapter 7, Volume 1, Breslow & Day
+## control weight of 441 estimated from population size
+tuyns<-read.table("tuynsc.txt",col.names=c("case","age","agegp","tobgp","tobacco","logtb","beer","cider",'wine',"aperitif","digestif","alcohol","logalc"))
+tuyns$wt<-ifelse(tuyns$case==1,1,441)
+tuyns<-subset(tuyns,  (tobacco!=99))
+tdes<-svydesign(id=~1,strata=~case,data=tuyns,weight=~wt)
+
+## Grouped data. Same original source, but now in data(esoph)
+data(esoph)
+options(contrasts=c("contr.treatment","contr.treatment"))
+esophcase<-esoph[rep(1:88,esoph$ncases),1:3]
+esophctrl<-esoph[rep(1:88,esoph$ncontrols),1:3]
+esophcase$status<-1
+esophctrl$status<-0
+esophcase$wt<-1
+esophctrl$wt<-441
+esophlong<-rbind(esophcase,esophctrl)
+des<-svydesign(id=~1,weights=~wt,data=esophlong)
+
+##
+## model fitting
+grouped1s<-svyglm(status~agegp+alcgp+tobgp,family=quasibinomial,design=des)
+grouped2s<-svyglm(status~agegp+alcgp+tobgp+as.numeric(alcgp):as.numeric(tobgp),family=quasibinomial,design=des)
+
+grouped1<-glm(status~agegp+alcgp+tobgp,family=binomial,data=esophlong)
+grouped2<-glm(status~agegp+alcgp+tobgp+as.numeric(alcgp):as.numeric(tobgp),family=binomial,data=esophlong)
+
+
+cont1s<-svyglm(case~age+I(age^2)+alcohol+tobacco,family=quasibinomial,design=tdes)
+cont2s<-svyglm(case~age+I(age^2)+alcohol*tobacco,family=quasibinomial,design=tdes)
+
+cont1<-glm(case~age+I(age^2)+alcohol+tobacco,family=binomial,data=tuyns)
+cont2<-glm(case~age+I(age^2)+alcohol*tobacco,family=binomial,data=tuyns)
+
+par(mar=c(3,6,0,0))
+dotchart(c(SE(grouped1s)/SE(grouped1), NA, SE(cont1s)/SE(cont1))^2,
+         pch=rep(c(1,19),c(12,6)),
+         xlab="Estimated variance increase with weighting")
+```
+
+
 ## Misspecification
 
 The benefit of MLE over raking is $O(n^{-1/2})$ when the model is correct, so we must also care about $O(n^{-1/2})$ biases from misspecification.
@@ -814,46 +979,8 @@ summary(res_logistic)
 
 ## Compare to raking
 
-```{r}
-library(survey)
-library(sleev)
-data(mock.vccc)
-mock.vccc$validated <- !is.na(mock.vccc$VL_val)
+We did this one yesterday
 
-dvccc<-twophase(id=list(~1,~1), strata=list(NULL,NULL),
-  subset=~validated, data=mock.vccc)
-
-
-## Imputation models fitted to phase 2 data
-imp_ADE<-svyglm(ADE_val~ADE_unval+VL_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age, design=dvccc, family=quasibinomial)
-imp_CD4<-svyglm(CD4_val~ADE_unval+VL_unval+CD4_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age, design=dvccc)
-
-## phase 1 imputations
-mock.vccc$ADE_hat<-predict(imp_ADE, newdata=mock.vccc, type="response")
-mock.vccc$CD4_hat<-predict(imp_CD4, newdata=mock.vccc, type="response")
-
-## phase-1 model
-
-mphase1<-glm(ADE_hat~CD4_hat+Prior_ART, data=mock.vccc, family=quasibinomial)
-
-
-
-h<- survey:::estfuns(mphase1)  ## or model.matrix(mphase1)*resid(mphase1,type="response")
-mock.vccc<-cbind(mock.vccc,h=h)
-dvccc_aug<-twophase(id=list(~1,~1), strata=list(NULL,NULL),
-  subset=~validated, data=mock.vccc)
-dvccc_cal<-calibrate(dvccc_aug, formula=~0+`h.(Intercept)`+h.CD4_hat+h.Prior_ART,phase=2,calfun="raking")
-```
-
-- impute `ADE_val`, `CD4_val` in subsample
-- predict to get `ADE_hat`, `CD4_hat` for everyone
-- fit phase-1 model `ADE_hat~CD4_hat+Prior_ART`
-- extract influence functions
-- calibrate to influence functions
-- fit `ADE_val~CD4_val+Prior_ART` in calibrated design
-
-(see `vccc_raking.R`)
----
 
 ```{r echo=TRUE}
 coef(summary(svyglm(ADE_val~CD4_val+Prior_ART,
@@ -863,7 +990,80 @@ coef(summary(svyglm(ADE_val~CD4_val+Prior_ART,
 
 Pretty comparable in this example (maybe because SRS)
 
+## Linear model
+
+CD4 count vs viral load:
+
+```{r}
+summary(mock.vccc[,2:7])
+```
+
+Need a log transformation of viral load
+
 ---
+
+```{r echo=TRUE}
+mock.vccc$lVL_unval<-log10(mock.vccc$VL_unval)
+mock.vccc$lVL_val<-log10(mock.vccc$VL_val)
+ 
+sn <- 20
+data.linear <- spline2ph(x = "lVL_unval", data = mock.vccc, size = sn,
+                         degree = 3,  group = "Sex")
+res_linear <- linear2ph(y_unval = "CD4_unval", y = "CD4_val",
+                        x_unval = "lVL_unval", x = "lVL_val",
+                        z = "Sex", data = data.linear,  hn_scale = 1,
+                        se = TRUE, tol = 1e-04, max_iter = 1000,
+                        verbose = FALSE)
+```
+
+## Results
+
+```{r echo=TRUE}
+summary(res_linear)
+```
+
+
+## Raking
+
+**Workflow**
+
+
+- impute $X, Y$: `ADE_val`, `CD4_val` in subsample
+- predict to get `ADE_hat`, `CD4_hat` for everyone
+- fit phase-1 model `ADE_hat~CD4_hat+Prior_ART` with `hat` versions **for everyone**
+- extract influence functions
+- calibrate to influence functions
+- fit `ADE_val~CD4_val+Prior_ART` in calibrated design
+
+(see `vccc_raking_vl.R`)
+
+```{r}
+imp_lVL<-svyglm(log10(VL_val)~log10(VL_unval)+ADE_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age, design=dvccc)
+imp_CD4<-svyglm(CD4_val~ADE_unval+VL_unval+CD4_unval+sqrt(CD4_unval)+Prior_ART+Sex+Age, design=dvccc)
+
+mock.vccc$lVL_hat<-predict(imp_lVL, newdata=mock.vccc, type="response")
+mock.vccc$CD4_hat<-predict(imp_CD4, newdata=mock.vccc, type="response")
+
+mphase1<-glm(CD4_hat~lVL_hat+Sex, data=mock.vccc)
+
+h<- survey:::estfuns(mphase1)  
+mock.vccc<-cbind(mock.vccc,h=h)
+mock.vccc$validated<-!is.na(mock.vccc$CD4_val)
+dvccc_aug<-twophase(id=list(~1,~1), strata=list(NULL,NULL),
+  subset=~validated, data=mock.vccc, method="simple")
+dvccc_cal<-calibrate(dvccc_aug, formula=~`h.(Intercept)`+h.lVL_hat+h.Sex,phase=2,calfun="raking")
+```
+
+
+## result
+
+```{r echo=TRUE}
+coef(summary(svyglm(CD4_val~log10(VL_val)+Sex,design=dvccc)))
+coef(summary(svyglm(CD4_val~log10(VL_val)+Sex,design=dvccc_cal)))
+```
+
+MLE still somewhat better than raking
+
 
 ## Optimal design
 
