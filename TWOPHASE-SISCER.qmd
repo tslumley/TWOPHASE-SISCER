@@ -852,6 +852,7 @@ dvccc_cal<-calibrate(dvccc_aug, formula=~0+`h.(Intercept)`+h.CD4_hat+h.Prior_ART
 - calibrate to influence functions
 - fit `ADE_val~CD4_val+Prior_ART` in calibrated design
 
+(see `vccc_raking.R`)
 ---
 
 ```{r echo=TRUE}
