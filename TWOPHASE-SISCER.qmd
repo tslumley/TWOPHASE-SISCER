@@ -397,13 +397,13 @@ Raw $X$, $Y$, $Z$ will only be good for discrete (nearly-)saturated models
 
 ## Good raking variables
 
-Want to fit `api00~enroll+ell+emer`
+Want to fit `api00~ell+emer+enroll`
 
 If we have `enroll, ell, emer` and `api99` we could try 
 
 - raking on `api99` 
 - raking on `ell`, `emer`, `enroll`
-- raking on $\tilde h$ from `api99~enroll+ell+emer`
+- raking on $\tilde h$ from `api99~ell+emer+enroll`
 
 ---
 
@@ -413,7 +413,7 @@ apipop_no_na<-subset(apipop, !is.na(enroll+emer+ell))
 in_subset<- apipop_no_na$snum %in% apistrat$snum
 dstrat2ph <- twophase(id=list(~1,~1), strata=list(NULL, ~stype),
      subset=~in_subset, data=apipop_no_na)
-model0<-svyglm(api00~enroll+ell+emer, design=dstrat2ph)
+model0<-svyglm(api00~ell+emer+enroll, design=dstrat2ph)
 ```
 
 ---
@@ -422,9 +422,9 @@ model0<-svyglm(api00~enroll+ell+emer, design=dstrat2ph)
 dcal_response <- calibrate(dstrat2ph, phase=2, 
                            formula=~api99, calfun="raking")
 dcal_pred <- calibrate(dstrat2ph, phase=2, 
-                           formula=~enroll+ell+emer, calfun="raking")
-model_y<-svyglm(api00~enroll+ell+emer, design=dcal_response)
-model_x<-svyglm(api00~enroll+ell+emer, design=dcal_pred)
+                           formula=~ell+emer+enroll, calfun="raking")
+model_y<-svyglm(api00~ell+emer+enroll, design=dcal_response)
+model_x<-svyglm(api00~ell+emer+enroll, design=dcal_pred)
 ```
 
 ---
@@ -440,17 +440,17 @@ coef(summary(model_x))
 ## Use influence functions
 
 ```{r echo=TRUE}
-model_ph1<-glm(api99~enroll+ell+emer, data=apipop_no_na)
+model_ph1<-glm(api99~ell+emer+enroll, data=apipop_no_na)
 apipop_no_na$h0<-resid(model_ph1)
 dstrat2inf <- twophase(id=list(~1,~1), strata=list(NULL, ~stype),
      subset=~in_subset, data=apipop_no_na)
-dstrat2inf<-update(dstrat2inf, h1=h0*enroll, 
-                  h2=h0*ell, 
-                  h3=h0*emer)
+dstrat2inf<-update(dstrat2inf, h1=h0*ell, 
+                  h2=h0*emer, 
+                  h3=h0*enroll)
 dcal_inf <- calibrate(dstrat2inf, phase=2, 
                            formula=~h0+h1+h2+h3, calfun="raking")
 
-model_h<-svyglm(api00~enroll+ell+emer, design=dcal_inf)
+model_h<-svyglm(api00~ell+emer+enroll, design=dcal_inf)
 ```
 
 We use `api99` for **everyone** in `model_ph1`, even when `api00` is known
@@ -576,7 +576,7 @@ which is the AIPW form
 
 ## Optimality
 
-If phase 1 is iid or srs or has large strata, the best design-consistent estimator is of the AIPW class and has $\hat U=E[U_i\mid\text{phase 1}]$
+If phase 1 is iid or srs or has large strata, any design-consistent estimator is of the AIPW class. The semiparametric-efficient one has $\hat U=E[U_i\mid\text{phase 1}]$ *(RRZ 1994)*
 
 Correctly specified multiple imputation for $\hat U$ will converge to this as $M\to\infty$
 
@@ -596,6 +596,13 @@ We don't have theory to characterise the optimal estimator when phase-1 is eg cl
 and questions
 
 # Discussion
+
+## Summary of the day
+
+- Replace full-cohort sums by weighted sample sums everywhere
+- Use influence functions to turn other statistics into sums
+- Raking/AIPW is as good as it gets for design-consistent estimators
+- `twophase`, `calibrate` for implementation
 
 # Bye for now
 
@@ -678,7 +685,7 @@ Need to estimate $\sigma^2_k=\mathrm{var}[h-\hat h]$, but we estimated $\mathrm{
 
 ## Example: School API
 
-Suppose we know from past years that 
+Suppose we expect from past years that 
 
 - the distribution of API is approximately the same year to year
 - the year-to-year change in a school's API is about $N(0,30^2)$
@@ -692,7 +699,7 @@ Then
 
 Optimal sampling for $\beta_{ell}$
 
-- fit `api00~emer+ell+enroll`
+- fit `api00~ell+emer+enroll`
 - extract $h_{ell}$
 - divide into strata
 - use Neyman allocation to choose sample size
@@ -720,7 +727,7 @@ m<-glm(api99~ell+emer+enroll,data=apipop_no_na)
 h<-survey:::estfuns(m)
 h_ell<-h[,2]
 df<-data.frame(stratum=cut(h_ell,5), h=h_ell)
-optimum_allocation(df,strata="stratum",y="h",nsample=120)
+optimum_allocation(df,strata="stratum",y="h",nsample=200)
 ```
 
 Ick
@@ -735,10 +742,104 @@ h<-survey:::estfuns(m)
 h_ell<-h[,2]
 df<-data.frame(stratum=cut(h_ell,c(-Inf, -3000,-1000,1000, 3000, Inf)),
                h=h_ell)
-optimum_allocation(df,strata="stratum",y="h",nsample=120)
+optimum_allocation(df,strata="stratum",y="h",nsample=200)
 ```
 
 🎉🎉
+
+## Sampling
+
+```{r echo=TRUE}
+set.seed(2026-7-15)
+df$id<-1:nrow(df)
+des<-optimum_allocation(df,strata="stratum",y="h",nsample=200)
+the_sample<-sample_strata(data=df,strata="stratum",id="id", design_data=des,design_strata="strata",n_allocated="stratum_size")
+table(the_sample$sample_indicator)
+```
+
+
+## Fitting
+
+```{r echo=TRUE}
+apipop_no_na$sample_strata<-the_sample$stratum
+apipop_no_na$in_sample<-the_sample$sample_indicator==1
+
+d2api_opt<-twophase(id=list(~1,~1),
+  strata=list(NULL, ~sample_strata),
+  subset=~in_sample, data=apipop_no_na
+)
+
+mopt<-svyglm(api00~ell+emer+enroll,design=d2api_opt)
+```
+
+---
+
+```{r}
+set.seed(2026-7-15)
+apipop_no_na$i<-(1:nrow(apipop_no_na)) %in% sample(1:nrow(apipop_no_na),200)
+d2srs<-twophase(id=list(~1,~1),strata=list(NULL,NULL),subset=~i,data=apipop_no_na)
+msrs<-svyglm(api00~ell+emer+enroll,design=d2srs)
+```
+
+```{r echo=TRUE}
+coef(summary(msrs))
+coef(summary(model0))
+coef(summary(mopt))
+```
+
+Better results for `ell`, and closer to true value of -3.59
+
+## Now raking
+
+We're thinking of change in API as random, so only 
+
+```{r echo=TRUE}
+set.seed(2026-7-15)
+apipop_no_na$delta_api<-rnorm(nrow(apipop_no_na),fitted(m),30)
+m_delta<-glm(delta_api~ell+emer+enroll,data=apipop_no_na)
+h<-survey:::estfuns(m_delta)
+h_ell<-h[,2]
+df<-data.frame(stratum=cut(h_ell,c(-Inf, -1000,-200,200, 1000, Inf)),
+               h=h_ell)
+optimum_allocation(df,strata="stratum",y="h",nsample=200)
+```
+
+---
+
+```{r echo=TRUE}
+df$id<-1:nrow(df)
+des<-optimum_allocation(df,strata="stratum",y="h",nsample=200)
+the_sample<-sample_strata(data=df,strata="stratum",id="id", design_data=des,design_strata="strata",n_allocated="stratum_size")
+table(the_sample$sample_indicator)
+```
+
+---
+
+```{r echo=TRUE}
+apipop_no_na$sample_strata<-the_sample$stratum
+apipop_no_na$in_sample<-the_sample$sample_indicator==1
+
+d2api_opt<-twophase(id=list(~1,~1),
+  strata=list(NULL, ~sample_strata),
+  subset=~in_sample, data=apipop_no_na
+)
+m_ph1<-glm(api99~ell+emer+enroll,data=apipop_no_na)
+d2api_rakeopt<-calibrate(d2api_opt, formula=m_ph1,
+                         phase=2,calfun="raking")
+mrakeopt<-svyglm(api00~ell+emer+enroll,design=d2api_rakeopt)
+```
+
+---
+
+```{r echo=TRUE}
+coef(summary(msrs))
+coef(summary(model_h))
+coef(summary(mrakeopt))
+```
+
+Design/raking compete to use the phase-1 info
+
+---
 
 ## Multiwave sampling
 
@@ -1135,9 +1236,11 @@ MLE still somewhat better than raking
 ## Optimal design
 
 The optimal design for `sleev` need not have $\pi>0$
+
 - typically doesn't for continuous $Y$ or $X$
 
 In general not known,
+
 - for small $\beta$ the optimal is to sample extremes of the score function
 - sampling extremes of residuals is a good approximation
 - $\pi_i=0$ in the middle
@@ -1151,6 +1254,36 @@ Optimal design is very sensitive to model specification
 
 - slight misspecification can give higher MSE from optimal design than less extreme design
 - bias is not **large** but is same size as precision gain
+
+## Example
+
+$$Y=\beta_0+\beta_1X+N(0,1)$$
+$$A= X+N(0,1)$$
+
+- **True generative model:}**: $Y$ is linear spline in $X$ with knots at $\pm 1$.
+- **Sampling model:**  sampling from 10 strata at deciles of $A$,\\ total 10\%
+- **Target of inference:** $\hat\beta_1$ estimated in full cohort
+- **Estimators:** *parametric* MLE based on subsample, raking
+
+## Data
+
+Purple is assumed model; red is a smoother
+
+
+![](data.png)
+
+## MLE has lower std err
+
+![](se.png)
+
+## MLE can have bias
+
+![](bias.png)
+
+##  Depends on assumptions
+
+![](rmse.png)
+
 
 
 # Questions?
