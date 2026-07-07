@@ -1057,9 +1057,83 @@ Need discrete strata $S=Y\times A$ but not discrete $X,Z$
 
 Using these weights instead of design weights or post-stratification weights gives maximum likelihood estimates. (needs iterative maximisation)
 
-## Eg
+## Example
 
-`missreg`
+- Wilms' Tumour is a rare childhood kidney cancer, mostly curable. Histology (cell weirdness) and Stage (amount of spread) are important predictors of outcome.
+- Histology is hard to assess. This one guy was better at it than anyone else
+- we have `hist` from him and `inst` from the local institution pathologist
+- let's pretend we have `hist` only on a subsample
+- data access thanks to Norm Breslow and National Wilms' Tumour Study Group
+
+---
+
+```{r echo=TRUE}
+library(missreg3)
+nwts<-read.table("nwts-share.txt", header=TRUE)
+names(nwts)
+with(nwts, table(relaps, instit))
+```
+
+Take everyone with unfavorable histology or who relapsed and 10% of the rest (not actually optimal but simple)
+
+---
+
+```{r echo=TRUE}
+nwts$in_sample<-with(nwts, relaps==1 | instit==1)
+ok<-sample(which(!nwts$in_sample),300)
+nwts$in_sample[ok]<-TRUE
+with(nwts, table(relaps, instit, in_sample))
+nwts$obstype<-ifelse(nwts$in_sample, "retro","strata")
+```
+
+---
+
+```{r echo=TRUE, output=FALSE}
+z4 <- bin2stg(relaps ~ factor(stage)*histol, 
+              xstrata="instit", 
+              data=nwts, xs.includes=FALSE)
+sz4<-summary(z4)
+```
+
+---
+
+```{r echo=TRUE}
+sz4$coef.table1
+sz4$coef.table2
+```
+
+## Compare weighted
+
+```{r echo=TRUE}
+dwilms<-twophase(id=list(~1,~1),
+                 strata=list(NULL, ~interaction(relaps,instit)),
+                 subset=~in_sample, data=nwts)
+ipw_wilms<-svyglm(relaps~factor(stage)*histol, design=dwilms, 
+       family=quasibinomial)
+coef(summary(ipw_wilms))
+```
+
+## Compare raking
+
+We will impute `histol` using all the variables, fit a model at phase 1 using the imputed values, then calibrate
+
+```{r echo=TRUE}
+ wilms_imp <- svyglm(histol~instit*stage+I(age>10),
+                    family=quasibinomial, design=dwilms)
+ nwts$imphist <- predict(wilms_imp, newdata=nwts, type="response")
+ wilms_ph1<-glm(relaps~stage*imphist+age*I(age>10)+tumdiam,family=binomial,data=nwts)
+ dwilms_cal<-calibrate(dwilms, formula=wilms_ph1, phase=2, calfun="raking")
+ rake_wilms<-svyglm(relaps~factor(stage)*histol, design=dwilms_cal, 
+       family=quasibinomial)
+```
+
+---
+
+```{r echo=TRUE}
+coef(summary(rake_wilms))
+```
+
+MLE still slightly better (it *assumes* $\text{relaps}\perp\text{instit}\mid \text{histol}$)
 
 ## Extensions
 
@@ -1124,8 +1198,7 @@ abline(0,1,lty=3,col="purple")
 Define 20-df spline basis for predicting error in `CD4_val`, then fit
 `ADE_val~CD4_val+Prior_ART` using all data and modelling measurement error
 
-```
-{r echo=TRUE, output=FALSE}
+```{r echo=TRUE, output=FALSE}
 sn <- 20
 data.logistic <- spline2ph(x = "CD4_unval", size = 20, degree = 3,
                            data = mock.vccc, group = "Prior_ART",
@@ -1140,8 +1213,7 @@ res_logistic <- logistic2ph(y = "ADE_val", y_unval = "ADE_unval",
 ---
 
 
-```
-{r echo=TRUE}
+```{r echo=TRUE}
 summary(res_logistic)
 ```
 

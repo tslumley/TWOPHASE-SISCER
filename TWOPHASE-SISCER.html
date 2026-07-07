@@ -6,8 +6,8 @@
 <script src="TWOPHASE-SISCER_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="TWOPHASE-SISCER_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="TWOPHASE-SISCER_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="TWOPHASE-SISCER_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="TWOPHASE-SISCER_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Thomas Lumley">
   <title>Design and Analysis of Two-Phase Studies</title>
@@ -17,9 +17,6 @@
   <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/reveal.css">
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -31,8 +28,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="TWOPHASE-SISCER_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="TWOPHASE-SISCER_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -162,13 +225,14 @@ Thomas Lumley
 <ul>
 <li>Optimal sampling for two-phase designs</li>
 <li>Neyman allocation and influence functions</li>
-<li>Strata vs individual probabilities</li>
 <li>Multiparameter optimisation</li>
+<li>Multiwave designs</li>
+<li>Strata vs individual probabilities</li>
 </ul>
 <h3 id="day-2-session-2">Day 2, Session 2</h3>
 <ul>
-<li>Multiwave designs</li>
 <li>Analysis approaches beyond weighting</li>
+<li>Contiguous misspecification</li>
 <li>Discussion and wrap-up</li>
 </ul>
 </section>
@@ -224,13 +288,22 @@ Thomas Lumley
 <p>Sample <span class="math inline">\(m\)</span> people from cohort and measure <span class="math inline">\(X\)</span></p>
 <p>Also measure <span class="math inline">\(X\)</span> on everyone who has an event</p>
 </section>
-<section id="measurement-error" class="slide level2">
-<h2>Measurement-error</h2>
+<section id="binary-measurement-error" class="slide level2">
+<h2>Binary measurement-error</h2>
 <p>Measure <span class="math inline">\(Y\)</span> and error-prone variable <span class="math inline">\(A\)</span> on whole cohort</p>
 <ul>
 <li>subsample same number from each cell of <span class="math inline">\(A\times Y\)</span></li>
 <li>measure true <span class="math inline">\(X\)</span> on subsample</li>
 </ul>
+</section>
+<section id="heuristic-oversampling" class="slide level2">
+<h2>Heuristic oversampling</h2>
+<ul>
+<li>Phase 1 includes data on mother-child dyads</li>
+<li>Phase 2 has measurements at 18 years, genetics</li>
+<li>Research is about parent-of-origin effects</li>
+</ul>
+<p>Oversample dyads where birthweight or maternal weight is high or low, undersample where both are mid</p>
 </section>
 <section id="ehr-data" class="slide level2">
 <h2>EHR data</h2>
@@ -245,13 +318,13 @@ Thomas Lumley
 <ul>
 <li>Want to fit <span class="math inline">\(Y\sim X+Z\)</span></li>
 <li>Measure <span class="math inline">\(Z\)</span>, <span class="math inline">\(A\)</span>, perhaps <span class="math inline">\(Y\)</span> on everyone</li>
-<li>Measure <span class="math inline">\(X\)</span> on the subsample</li>
+<li>Measure <span class="math inline">\(X\)</span>, perhaps <span class="math inline">\(Y\)</span> on the subsample</li>
 <li><span class="math inline">\(R\)</span> is subsampling indicator</li>
 </ul>
 <p>Sometimes <span class="math inline">\(A\)</span> predicts <span class="math inline">\(X\)</span> well, sometimes not</p>
 <p>Sometimes <span class="math inline">\(Z,A\)</span> is high-dimensional, sometimes not</p>
 <p>Sometimes <span class="math inline">\(X\)</span> is high-dimensional, sometimes not</p>
-<p><em>We will usually take <span class="math inline">\(\pi_{i,1}\)</span> to be constant: iid sample at phase 1</em></p>
+<p><em>We will usually take</em> <span class="math inline">\(\pi_{i,1}\)</span> to be constant: iid sample at phase 1</p>
 </section></section>
 <section>
 <section id="inference-and-computation" class="title-slide slide level1 center">
@@ -262,7 +335,7 @@ Thomas Lumley
 <h2>Weighting</h2>
 <p><span class="math inline">\(w_i=1/{\pi^*_i}\)</span> or <span class="math inline">\(1/\pi_{2|1,i}\)</span> are <em>design</em> or <em>grossing-up weights</em></p>
 <p>Person <span class="math inline">\(i\)</span> in the subsample <strong>represents</strong> <span class="math inline">\(w_i\)</span> people in the population/cohort.</p>
-<p><span class="math display">\[E[\color{red}{w_iR_i}]=E\left[\frac{R_i}{\pi_i^*}\right]=1\]</span> <strong>We can put <span class="math inline">\(\color{red}{w_iR_i}\)</span> into any sum over <span class="math inline">\(i=1,\dots,N\)</span> to get a weighted sample version</strong></p>
+<p><span class="math display">\[E[\color{red}{w_iR_i}]=E\left[\frac{R_i}{\pi_i^*}\right]=1\]</span> <strong>We can put</strong> <span class="math inline">\(\color{red}{w_iR_i}\)</span> into any sum over <span class="math inline">\(i=1,\dots,N\)</span> to get a weighted sample version</p>
 <p>Unlike most surveys, we (typically) don’t have non-response</p>
 </section>
 <section id="two-levels-of-randomness" class="slide level2">
@@ -276,10 +349,27 @@ Thomas Lumley
 <p>Estimator: <span class="math inline">\(\hat T_X=\sum_{i=1}^N \color{red}{w_iR_i} X_i\)</span></p>
 <p><span class="math display">\[\mathrm{var}[\hat T_X]= \mathrm{var}[E[\hat T_X|\text{phase 1}]]+E[\mathrm{var}[\hat T_X|\text{phase 1}]]\]</span> First term is full-cohort <span class="math inline">\(\mathrm{var}[\tilde T_X]\)</span>, second is sampling variance</p>
 </section>
+<section id="computation" class="slide level2">
+<h2>Computation</h2>
+<pre><code>library(survey)
+cc_design&lt;-twophase(id=list(~1,~1), 
+    strata=list(NULL, ~y), 
+    subset=~in_sample,
+    data=data)</code></pre>
+</section>
 <section id="using-the-whole-cohort" class="slide level2">
 <h2>Using the whole cohort</h2>
-<p>We have <span class="math inline">\(Y, Z, A\)</span> on <span class="math inline">\(N-n\)</span> unsampled people.</p>
-<p>Define raking variables <span class="math inline">\(H_i=H(Y,Z,A)\)</span> and compute raking adjustments <span class="math inline">\(g_i\)</span> so that</p>
+<p>We have <span class="math inline">\(A\)</span> on everyone, not just subsample</p>
+<ul>
+<li>imputation? (model assumptions)</li>
+<li>calibration/raking/post-stratification</li>
+</ul>
+<p>Adjust the weights to use the whole-cohort information</p>
+</section>
+<section id="using-the-whole-cohort-1" class="slide level2">
+<h2>Using the whole cohort</h2>
+<p>We have <span class="math inline">\(A\)</span> on <span class="math inline">\(N-n\)</span> unsampled people.</p>
+<p>Define raking variables <span class="math inline">\(H_i=H(A)\)</span> and compute raking adjustments <span class="math inline">\(g_i\)</span> so that</p>
 <p><span class="math display">\[\sum_{i=1}^N \color{blue}{g_iw_iR_i}H_i=\sum_{i=1}^N H_i\]</span></p>
 <ul>
 <li>There is <em>no</em> subsampling error in <span class="math inline">\(\sum_{i=1}^N \color{blue}{g_iw_iR_i}H_i\)</span></li>
@@ -292,20 +382,117 @@ Thomas Lumley
 <p>Before raking</p>
 <p><span class="math display">\[\text{var}[\hat T_X]=\sum_{i,j=1}^n w_iX_i\,w_jX_j\,\text{cov}[R_i,R_j]\]</span></p>
 <p>After raking</p>
-<p><span class="math display">\[\mathrm{var}[\hat T_X]=\sum_{i,j=1}^n w_ie_i\,w_je_j\,\mathrm{cov}[R_i,R_j]\]</span></p>
+<p><span class="math display">\[\mathrm{var}[\hat T_X]=\sum_{i,j=1}^n g_iw_ie_i\,g_jw_je_j\,\mathrm{cov}[R_i,R_j]\]</span></p>
 <p>where <span class="math inline">\(e_j\)</span> are <strong>residuals</strong> from regressing <span class="math inline">\(X\)</span> on <span class="math inline">\(H\)</span></p>
 </section>
-<section id="computation" class="slide level2">
-<h2>Computation</h2>
-<pre><code>library(survey)
-cc_design&lt;-twophase(id=list(~1,~1), 
-    strata=list(NULL, ~y), 
-    subset=~in_sample,
-    data=data)</code></pre>
+<section id="good-raking-variables" class="slide level2">
+<h2>Good raking variables</h2>
+<p>Data: California Academic Performance Index 1999-2000 on 6194 schools</p>
+<ul>
+<li>many school-level variables (socioeconomic, procedural)</li>
+<li>API 1999,2000: school standardised test results</li>
+<li><code>enroll</code>: school size</li>
+</ul>
+<p><code>api99</code>, <code>api00</code> very strongly correlated. Pretend <code>api00</code> is phase 2 <span class="math inline">\(Y\)</span>, api99 is phase 1 <span class="math inline">\(A\)</span>.</p>
+</section>
+<section id="means-and-totals" class="slide level2">
+<h2>Means and totals</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(survey)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">data</span>(api)</span>
+<span id="cb2-3"><a href=""></a>apipop<span class="sc">$</span>instrat<span class="ot">&lt;-</span> apipop<span class="sc">$</span>snum <span class="sc">%in%</span> apistrat<span class="sc">$</span>snum</span>
+<span id="cb2-4"><a href=""></a>dstrat2ph<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>), <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>,<span class="sc">~</span>stype), </span>
+<span id="cb2-5"><a href=""></a>                     <span class="at">subset=</span><span class="sc">~</span>instrat,<span class="at">data=</span>apipop)</span>
+<span id="cb2-6"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>api00, dstrat2ph)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        mean     SE
+api00 662.29 9.5377</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>enroll, dstrat2ph)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         mean     SE
+enroll 595.28 19.339</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+
+<img data-src="TWOPHASE-SISCER_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="use-all-of-api99" class="slide level2">
+<h2>Use all of <code>api99</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>dcal1 <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(dstrat2ph, <span class="sc">~</span>api99, <span class="at">phase=</span><span class="dv">2</span>)</span>
+<span id="cb6-2"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>api00, dcal1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        mean     SE
+api00 664.64 2.4623</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>enroll, dcal1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         mean     SE
+enroll 593.78 18.764</code></pre>
+</div>
+</div>
+<p><code>api99</code> strongly correlated with <code>api00</code>, but not with <code>enroll</code></p>
+</section>
+<section id="same-idea-for-enroll" class="slide level2">
+<h2>Same idea for <code>enroll</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>dcal2 <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(dstrat2ph, <span class="sc">~</span>api.stu<span class="sc">+</span>api99, <span class="at">phase=</span><span class="dv">2</span>)</span>
+<span id="cb10-2"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>api00, dcal2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        mean     SE
+api00 664.19 2.4509</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">svymean</span>(<span class="sc">~</span>enroll, dcal2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         mean     SE
+enroll 615.93 8.4094</code></pre>
+</div>
+</div>
+<ul>
+<li><code>api99</code> strongly correlated with <code>api00</code></li>
+<li><code>api.stu</code> number of students taking test correlated with total enrollment</li>
+</ul>
+</section>
+<section id="imputation" class="slide level2">
+<h2>Imputation?</h2>
+<p>One way to do raking is to use weighted linear regression</p>
+<ul>
+<li>impute <code>api00</code> from <code>api99</code> <strong>for everyone</strong> (no uncertainty to first order)</li>
+<li><span class="math inline">\(\hat X\)</span> is a linear function of <span class="math inline">\(X\)</span>, so is just reweighting</li>
+<li>add Horvitz-Thompson estimator of <span class="math inline">\(\texttt{api00}-\widehat{\texttt{api00}}\)</span></li>
+</ul>
+<p>Variance comes from the second step, so is just variance of residuals</p>
+<p><span class="math display">\[\scriptsize \mathrm{var}[\hat T_X]=\sum_{i,j=1}^n g_iw_ie_i\,g_jw_je_j\,\mathrm{cov}[R_i,R_j]\]</span></p>
+</section>
+<section id="free-lunch" class="slide level2">
+<h2>Free lunch!</h2>
+<p>If the subsample genuinely is a probability sample with known <span class="math inline">\(\pi_i\)</span>, there are no additional assumptions for raking/calibration!</p>
+<ul>
+<li>(proof idea: predicting <code>api00~api99</code> has mean zero error <em>by construction</em>)</li>
+<li>Same free lunch as baseline adjustment in RCT</li>
+<li>linked by idea of randomisation as sampling conditional outcomes</li>
+</ul>
+</section>
+<section id="digression-unfree-lunch" class="slide level2">
+<h2>Digression: unfree lunch</h2>
+<p>If the subsample does not have known true <span class="math inline">\(\pi_i\)</span> you can estimate the <span class="math inline">\(\pi_i\)</span> by by logistic regression and then do raking</p>
+<ul>
+<li>resulting estimator is doubly-robust estimator</li>
+<li>it’s pretty good, too (Williamson <em>et al</em>, 2026 <em>Stat Med</em>)</li>
+</ul>
+</section>
+<section id="imputation-1" class="slide level2">
+<h2>Imputation</h2>
+<p>We used single variables, but you can use any combination that predicts <span class="math inline">\(X\)</span></p>
+<p>We typically use a slightly different estimator that can’t produce negative weights</p>
+<p><strong>Multiple imputation</strong> to do raking is valid (and actually sensible for regression: next session)</p>
 </section></section>
 <section id="exercises" class="title-slide slide level1 center">
 <h1>Exercises</h1>
-
+<p>and questions</p>
 </section>
 
 <section id="discussion" class="title-slide slide level1 center">
@@ -329,7 +516,7 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <li>how do we do weighted estimation?</li>
 <li>how do we estimate uncertainty?</li>
 <li>what are good raking variables?</li>
-<li>isn’t it horribly inefficient?</li>
+<li>isn’t it horribly inefficient? <em>(tomorrow)</em></li>
 <li>why isn’t it all well known?</li>
 </ul>
 </section>
@@ -353,9 +540,9 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <p>Again: <span class="math inline">\((Y,Z,A)\mid (R,X)\)</span></p>
 <p>For point estimates we can just put <span class="math inline">\(w_i\)</span> in the objective function</p>
 <p><span class="math inline">\(\tilde\ell(\theta)=\sum_{i=1}^N \ell_i(\theta)\)</span></p>
-<p>giving the census parameter <span class="math inline">\(\tilde\theta\)</span>, goes to</p>
+<p>giving the <strong>census parameter</strong> <span class="math inline">\(\tilde\theta\)</span>, goes to</p>
 <p><span class="math inline">\(\hat\ell (\theta)=\sum_{i=1}^N \color{red}{w_iR_i}\ell_i(\theta)\)</span></p>
-<p>giving the weighted estimator <span class="math inline">\(\hat\theta\)</span></p>
+<p>giving the <strong>weighted estimator</strong> <span class="math inline">\(\hat\theta\)</span></p>
 </section>
 <section id="influence-functions" class="slide level2">
 <h2>Influence functions</h2>
@@ -367,7 +554,7 @@ cc_design&lt;-twophase(id=list(~1,~1),
 
 <h3 id="examples">Examples</h3>
 <ul>
-<li><p>Regression: <span class="math inline">\(h_i=n(X^TX)^{-1}x_i(y_i-x_i'\beta)\)</span></p></li>
+<li><p>OLS Regression: <span class="math inline">\(h_i=n(X^TX)^{-1}x_i(y_i-x_i'\beta)\)</span></p></li>
 <li><p>If <span class="math inline">\(\hat\theta\)</span> solves <span class="math inline">\(U(\theta)=\sum_i U_i(\theta)=0\)</span> then <span class="math display">\[h_i=E\left[\frac{1}{n}\frac{\partial U}{\partial\theta}\right]^{-1}U_i(\theta)\]</span></p></li>
 </ul>
 </section>
@@ -381,15 +568,301 @@ cc_design&lt;-twophase(id=list(~1,~1),
 </ul>
 <p>Everything looks like a sum!</p>
 <p><span class="math inline">\(\scriptsize \text{(not lasso, quantiles, mixed models)}\)</span></p>
+</section>
+<section id="good-raking-variables-1" class="slide level2">
+<h2>Good raking variables</h2>
+<p>Data: California Academic Performance Index 1999-2000 on 6194 schools</p>
+<ul>
+<li>many school-level variables (socioeconomic, procedural)</li>
+<li>API 1999,2000: school standardised test results</li>
+</ul>
+<p><code>api99</code>, <code>api00</code> very strongly correlated. Pretend <code>api00</code> is phase 2 <span class="math inline">\(Y\)</span>, api99 is phase 1 <span class="math inline">\(A\)</span>.</p>
+</section>
+<section id="correlated-with-h" class="slide level2">
+<h2>Correlated with <span class="math inline">\(h\)</span>?</h2>
+<p>Consider <code>api00~enroll+ell+emer</code></p>
+<p><span class="math display">\[h_i = (Z^TZ)^{-1}(1, z_1, z_2, z_3)^T(\texttt{api00}-\mu)\]</span></p>
+<ul>
+<li>Is <code>api99</code> correlated with <span class="math inline">\(h\)</span>?</li>
+<li>Are the <span class="math inline">\(Z\)</span>s correlated with <span class="math inline">\(h\)</span>?</li>
+<li>How about <span class="math display">\[\tilde h_i = (Z^TZ)^{-1}(1, z_1, z_2, z_3)^T(\texttt{api99}-\mu)\]</span></li>
+</ul>
+</section>
+<section id="good-raking-variables-2" class="slide level2">
+<h2>Good raking variables</h2>
+<p>Good raking variables will be <span class="math inline">\(h\)</span> for some related model</p>
+<ul>
+<li>impute <span class="math inline">\(X,Y\)</span> from phase 1</li>
+<li>fit model to imputed data (only!)</li>
+<li>extract influence functions</li>
+</ul>
+<p>Raw <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span> will only be good for discrete (nearly-)saturated models</p>
+</section>
+<section id="good-raking-variables-3" class="slide level2">
+<h2>Good raking variables</h2>
+<p>Want to fit <code>api00~ell+emer+enroll</code></p>
+<p>If we have <code>enroll, ell, emer</code> and <code>api99</code> we could try</p>
+<ul>
+<li>raking on <code>api99</code></li>
+<li>raking on <code>ell</code>, <code>emer</code>, <code>enroll</code></li>
+<li>raking on <span class="math inline">\(\tilde h\)</span> from <code>api99~ell+emer+enroll</code></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">data</span>(api)</span>
+<span id="cb14-2"><a href=""></a>apipop_no_na<span class="ot">&lt;-</span><span class="fu">subset</span>(apipop, <span class="sc">!</span><span class="fu">is.na</span>(enroll<span class="sc">+</span>emer<span class="sc">+</span>ell))</span>
+<span id="cb14-3"><a href=""></a>in_subset<span class="ot">&lt;-</span> apipop_no_na<span class="sc">$</span>snum <span class="sc">%in%</span> apistrat<span class="sc">$</span>snum</span>
+<span id="cb14-4"><a href=""></a>dstrat2ph <span class="ot">&lt;-</span> <span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>), <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>, <span class="sc">~</span>stype),</span>
+<span id="cb14-5"><a href=""></a>     <span class="at">subset=</span><span class="sc">~</span>in_subset, <span class="at">data=</span>apipop_no_na)</span>
+<span id="cb14-6"><a href=""></a>model0<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">design=</span>dstrat2ph)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>dcal_response <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(dstrat2ph, <span class="at">phase=</span><span class="dv">2</span>, </span>
+<span id="cb15-2"><a href=""></a>                           <span class="at">formula=</span><span class="sc">~</span>api99, <span class="at">calfun=</span><span class="st">"raking"</span>)</span>
+<span id="cb15-3"><a href=""></a>dcal_pred <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(dstrat2ph, <span class="at">phase=</span><span class="dv">2</span>, </span>
+<span id="cb15-4"><a href=""></a>                           <span class="at">formula=</span><span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">calfun=</span><span class="st">"raking"</span>)</span>
+<span id="cb15-5"><a href=""></a>model_y<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">design=</span>dcal_response)</span>
+<span id="cb15-6"><a href=""></a>model_x<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">design=</span>dcal_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model0))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.14929299 12.48592716 64.164181 1.347911e-132
+ell          -2.99157697  0.31471992 -9.505521  7.835588e-18
+emer         -3.30165579  0.63592547 -5.191891  5.233058e-07
+enroll       -0.05311036  0.01025413 -5.179413  5.549932e-07</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model_y))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 802.76719841 10.23760676 78.413561 7.251337e-149
+ell          -3.00724140  0.30992540 -9.703114  2.136121e-18
+emer         -3.30906719  0.63879321 -5.180185  5.529798e-07
+enroll       -0.05332618  0.01017023 -5.243363  4.101895e-07</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model_x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Estimate   Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.5697490 12.151986332 65.962035 7.996978e-135
+ell          -2.9918879  0.307695468 -9.723536  1.866677e-18
+emer         -3.4081492  0.605288308 -5.630621  6.230579e-08
+enroll       -0.0517647  0.009567195 -5.410646  1.837769e-07</code></pre>
+</div>
+</div>
+<p>😞😞😞</p>
+</section>
+<section id="use-influence-functions" class="slide level2">
+<h2>Use influence functions</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>model_ph1<span class="ot">&lt;-</span><span class="fu">glm</span>(api99<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">data=</span>apipop_no_na)</span>
+<span id="cb22-2"><a href=""></a>apipop_no_na<span class="sc">$</span>h0<span class="ot">&lt;-</span><span class="fu">resid</span>(model_ph1)</span>
+<span id="cb22-3"><a href=""></a>dstrat2inf <span class="ot">&lt;-</span> <span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>), <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>, <span class="sc">~</span>stype),</span>
+<span id="cb22-4"><a href=""></a>     <span class="at">subset=</span><span class="sc">~</span>in_subset, <span class="at">data=</span>apipop_no_na)</span>
+<span id="cb22-5"><a href=""></a>dstrat2inf<span class="ot">&lt;-</span><span class="fu">update</span>(dstrat2inf, <span class="at">h1=</span>h0<span class="sc">*</span>ell, </span>
+<span id="cb22-6"><a href=""></a>                  <span class="at">h2=</span>h0<span class="sc">*</span>emer, </span>
+<span id="cb22-7"><a href=""></a>                  <span class="at">h3=</span>h0<span class="sc">*</span>enroll)</span>
+<span id="cb22-8"><a href=""></a>dcal_inf <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(dstrat2inf, <span class="at">phase=</span><span class="dv">2</span>, </span>
+<span id="cb22-9"><a href=""></a>                           <span class="at">formula=</span><span class="sc">~</span>h0<span class="sc">+</span>h1<span class="sc">+</span>h2<span class="sc">+</span>h3, <span class="at">calfun=</span><span class="st">"raking"</span>)</span>
+<span id="cb22-10"><a href=""></a></span>
+<span id="cb22-11"><a href=""></a>model_h<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll, <span class="at">design=</span>dcal_inf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We use <code>api99</code> for <strong>everyone</strong> in <code>model_ph1</code>, even when <code>api00</code> is known</p>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model0))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.14929299 12.48592716 64.164181 1.347911e-132
+ell          -2.99157697  0.31471992 -9.505521  7.835588e-18
+emer         -3.30165579  0.63592547 -5.191891  5.233058e-07
+enroll       -0.05311036  0.01025413 -5.179413  5.549932e-07</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model_h))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.74938976 4.126594175 194.28840 3.167425e-224
+ell          -3.63459562 0.123813218 -29.35547  2.708080e-73
+emer         -2.49786997 0.161315309 -15.48440  9.713470e-36
+enroll       -0.04182092 0.003760623 -11.12074  1.527149e-22</code></pre>
+</div>
+</div>
+<p>🎉🎉🎉</p>
+</section>
+<section id="with-imputation" class="slide level2">
+<h2>With imputation</h2>
+<p>We don’t usually have a single surrogate</p>
+<ul>
+<li>impute <span class="math inline">\(X\)</span>, (and <span class="math inline">\(Y\)</span> if needed)</li>
+<li>use all phase 1 information</li>
+<li>either use single <span class="math inline">\(\hat h\)</span> or average over multiple imputations <span class="math inline">\(\bar h\)</span></li>
+</ul>
+</section>
+<section id="vccc" class="slide level2">
+<h2>VCCC</h2>
+<p>Synthetic version of HIV cohort from Vanderbilt University Medical Center</p>
+<ul>
+<li><span class="math inline">\(A\)</span>: CD4 count, viral load, AIDS-defining event <em>(with error)</em></li>
+<li><span class="math inline">\(X\)</span>: CD4 count, viral load, AIDS-defining event <em>(validated)</em></li>
+</ul>
+<p>Validation on simple random sample (Giganti <em>et al</em>, 2020)</p>
+<p>We use the real data, but we can’t give it to you</p>
+</section>
+<section id="workflow" class="slide level2">
+<h2>Workflow</h2>
+<ul>
+<li>impute <span class="math inline">\(X, Y\)</span>: <code>ADE_val</code>, <code>CD4_val</code> in subsample</li>
+<li>predict to get <code>ADE_hat</code>, <code>CD4_hat</code> for everyone</li>
+<li>fit phase-1 model <code>ADE_hat~CD4_hat+Prior_ART</code> with <code>hat</code> versions <strong>for everyone</strong></li>
+<li>extract influence functions</li>
+<li>calibrate to influence functions</li>
+<li>fit <code>ADE_val~CD4_val+Prior_ART</code> in calibrated design</li>
+</ul>
+<p>(see <code>vccc_raking.R</code>)</p>
+</section>
+<section id="design-setup" class="slide level2">
+<h2>Design setup</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(survey)</span>
+<span id="cb27-2"><a href=""></a><span class="fu">data</span>(mock.vccc, <span class="at">package=</span><span class="st">"sleev"</span>)</span>
+<span id="cb27-3"><a href=""></a><span class="fu">names</span>(mock.vccc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ID"        "VL_unval"  "VL_val"    "ADE_unval" "ADE_val"   "CD4_unval"
+ [7] "CD4_val"   "Prior_ART" "Sex"       "Age"      </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>mock.vccc<span class="sc">$</span>validated <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">is.na</span>(mock.vccc<span class="sc">$</span>VL_val)</span>
+<span id="cb29-2"><a href=""></a></span>
+<span id="cb29-3"><a href=""></a>dvccc<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>), <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>,<span class="cn">NULL</span>),</span>
+<span id="cb29-4"><a href=""></a>  <span class="at">subset=</span><span class="sc">~</span>validated, <span class="at">data=</span>mock.vccc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="single-imputation" class="slide level2">
+<h2>Single imputation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>imp_ADE<span class="ot">&lt;-</span><span class="fu">svyglm</span>(</span>
+<span id="cb30-2"><a href=""></a>  ADE_val<span class="sc">~</span>ADE_unval<span class="sc">+</span>VL_unval<span class="sc">+</span><span class="fu">sqrt</span>(CD4_unval)<span class="sc">+</span>Prior_ART<span class="sc">+</span>Sex<span class="sc">+</span>Age,</span>
+<span id="cb30-3"><a href=""></a>  <span class="at">design=</span>dvccc, <span class="at">family=</span>quasibinomial)</span>
+<span id="cb30-4"><a href=""></a>imp_CD4<span class="ot">&lt;-</span><span class="fu">svyglm</span>(</span>
+<span id="cb30-5"><a href=""></a>  CD4_val<span class="sc">~</span>ADE_unval<span class="sc">+</span>VL_unval<span class="sc">+</span>CD4_unval<span class="sc">+</span><span class="fu">sqrt</span>(CD4_unval)<span class="sc">+</span>Prior_ART<span class="sc">+</span>Sex<span class="sc">+</span>Age,</span>
+<span id="cb30-6"><a href=""></a>  <span class="at">design=</span>dvccc)</span>
+<span id="cb30-7"><a href=""></a></span>
+<span id="cb30-8"><a href=""></a><span class="do">## phase 1 imputations</span></span>
+<span id="cb30-9"><a href=""></a>mock.vccc<span class="sc">$</span>ADE_hat<span class="ot">&lt;-</span><span class="fu">predict</span>(imp_ADE, <span class="at">newdata=</span>mock.vccc, <span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb30-10"><a href=""></a>mock.vccc<span class="sc">$</span>CD4_hat<span class="ot">&lt;-</span><span class="fu">predict</span>(imp_CD4, <span class="at">newdata=</span>mock.vccc, <span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb30-11"><a href=""></a></span>
+<span id="cb30-12"><a href=""></a><span class="do">## phase-1 model</span></span>
+<span id="cb30-13"><a href=""></a></span>
+<span id="cb30-14"><a href=""></a>mphase1<span class="ot">&lt;-</span><span class="fu">glm</span>(ADE_hat<span class="sc">~</span>CD4_hat<span class="sc">+</span>Prior_ART, <span class="at">data=</span>mock.vccc, </span>
+<span id="cb30-15"><a href=""></a>             <span class="at">family=</span>quasibinomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="calibrate" class="slide level2">
+<h2>Calibrate</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>h<span class="ot">&lt;-</span> survey<span class="sc">:::</span><span class="fu">estfuns</span>(mphase1)  </span>
+<span id="cb31-2"><a href=""></a>mock.vccc<span class="ot">&lt;-</span><span class="fu">cbind</span>(mock.vccc, <span class="at">h=</span>h)</span>
+<span id="cb31-3"><a href=""></a>dvccc_aug<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>), <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>,<span class="cn">NULL</span>),</span>
+<span id="cb31-4"><a href=""></a>  <span class="at">subset=</span><span class="sc">~</span>validated, <span class="at">data=</span>mock.vccc)</span>
+<span id="cb31-5"><a href=""></a>dvccc_cal<span class="ot">&lt;-</span><span class="fu">calibrate</span>(dvccc_aug,</span>
+<span id="cb31-6"><a href=""></a>              <span class="at">formula=</span><span class="sc">~</span><span class="st">`</span><span class="at">h.(Intercept)</span><span class="st">`</span><span class="sc">+</span>h.CD4_hat<span class="sc">+</span>h.Prior_ART,</span>
+<span id="cb31-7"><a href=""></a>              <span class="at">phase=</span><span class="dv">2</span>,<span class="at">calfun=</span><span class="st">"raking"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="do-the-fit" class="slide level2">
+<h2>Do the fit</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">svyglm</span>(ADE_val<span class="sc">~</span>CD4_val<span class="sc">+</span>Prior_ART,<span class="at">design=</span>dvccc,</span>
+<span id="cb32-2"><a href=""></a>                    <span class="at">family=</span>quasibinomial)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error    t value     Pr(&gt;|t|)
+(Intercept) -1.501074981 0.361115336 -4.1567744 3.562059e-05
+CD4_val     -0.007492357 0.001758059 -4.2617206 2.260602e-05
+Prior_ART   -0.147051089 0.336497680 -0.4370048 6.622213e-01</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">svyglm</span>(ADE_val<span class="sc">~</span>CD4_val<span class="sc">+</span>Prior_ART,<span class="at">design=</span>dvccc_cal, </span>
+<span id="cb34-2"><a href=""></a>                    <span class="at">family=</span>quasibinomial)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error    t value     Pr(&gt;|t|)
+(Intercept) -1.700874473 0.296411744 -5.7382155 1.339677e-08
+CD4_val     -0.006982936 0.001579938 -4.4197535 1.118907e-05
+Prior_ART   -0.140060831 0.288632819 -0.4852561 6.276225e-01</code></pre>
+</div>
+</div>
+<p>🎉🎉🎉</p>
+</section>
+<section id="notes" class="slide level2">
+<h2>Notes</h2>
+<ul>
+<li>multiple imputation is <em>slightly</em> better</li>
+<li>validity does not rely on quality of imputation</li>
+<li>we can afford quite a lot of imputation/raking variables (only need <span class="math inline">\(n^{-1/4}\)</span> convergence)</li>
+<li>there are no good diagnostics for how many</li>
+<li>If you have <code>survey 4.5-2</code> from <code>r-universe</code> you can do</li>
+</ul>
+<pre><code>dvccc_cal &lt;- calibrate(dvccc, formula=mphase1, phase=2, calfun="raking")</code></pre>
+<p>and not have to set up <code>h</code> yourself</p>
+</section>
+<section id="cf-aipw" class="slide level2">
+<h2>cf AIPW</h2>
+<p>Raking solves <span class="math display">\[\sum w_i R_i (U_i-\hat U_i) + \sum_i\hat U_i=0\]</span> where <span class="math inline">\(\hat U_i\)</span> is the prediction from the <span class="math inline">\(H_i\)</span>.</p>
+<p>Equivalently <span class="math display">\[\sum w_i R_i U_i + (1-w_iR_i)\hat U_i=0\]</span> which is the AIPW form</p>
+</section>
+<section id="optimality" class="slide level2">
+<h2>Optimality</h2>
+<p>If phase 1 is iid or srs or has large strata, any design-consistent estimator is of the AIPW class. The semiparametric-efficient one has <span class="math inline">\(\hat U=E[U_i\mid\text{phase 1}]\)</span> <em>(RRZ 1994)</em></p>
+<p>Correctly specified multiple imputation for <span class="math inline">\(\hat U\)</span> will converge to this as <span class="math inline">\(M\to\infty\)</span></p>
+<p>Single imputation often isn’t bad</p>
+<p>We don’t have theory to characterise the optimal estimator when phase-1 is eg cluster-sampled, but raking seems to work well.</p>
+</section>
+<section id="why-isnt-this-well-known" class="slide level2">
+<h2>Why isn’t this well known?</h2>
+<ul>
+<li>Hybrid of biostat and survey sampling literature</li>
+<li>Weighted estimators look inefficient</li>
+<li>Not likelihood based, hard to Bayesian</li>
+<li>Software support is recent</li>
+</ul>
 </section></section>
+<section id="exercises-1" class="title-slide slide level1 center">
+<h1>Exercises</h1>
+<p>and questions</p>
+</section>
+
+<section>
+<section id="discussion-1" class="title-slide slide level1 center">
+<h1>Discussion</h1>
+
+</section>
+<section id="summary-of-the-day" class="slide level2">
+<h2>Summary of the day</h2>
+<ul>
+<li>Replace full-cohort sums by weighted sample sums everywhere</li>
+<li>Use influence functions to turn other statistics into sums</li>
+<li>Raking/AIPW is as good as it gets for design-consistent estimators</li>
+<li><code>twophase</code>, <code>calibrate</code> for implementation</li>
+</ul>
+</section></section>
+<section>
 <section id="bye-for-now" class="title-slide slide level1 center">
 <h1>Bye for now</h1>
 <p>Same time tomorrow</p>
 </section>
+<section class="slide level2">
 
+</section></section>
 <section id="optimal-design" class="title-slide slide level1 center">
 <h1>Optimal design</h1>
-<p>In which some have more chance than others</p>
+<p>In which some have a better chance than others</p>
 </section>
 
 <section>
@@ -411,13 +884,13 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <h2>Solution</h2>
 <ul>
 <li>Continuous approximation (Neyman, 1934): <span class="math inline">\(n_k\propto N_k\sigma_k\)</span></li>
-<li>Straightforward exact algorithm (Wright, 2017)</li>
+<li>Straightforward exact algorithm (Wright, 2012; 2017)</li>
 </ul>
 <p>Optimal stratum choice is harder, but we know</p>
 <ul>
-<li>stratum all the same size</li>
-<li>stratum size=2 is ideal</li>
-<li>(post-stratification needs larger strata)</li>
+<li>strata all the same size</li>
+<li>stratum size = 2 is ideal</li>
+<li>(<strong>post-</strong>stratification needs larger strata)</li>
 </ul>
 </section>
 <section id="regression-models-1" class="slide level2">
@@ -430,13 +903,328 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <p><strong>Influence functions!!</strong></p>
 <p><span class="math display">\[n_k\propto N_k\sigma_k\]</span></p>
 <p>where <span class="math inline">\(\sigma^2_k\)</span> is now the variance of the efficient influence function for <span class="math inline">\(\beta\)</span> in the complete cohort</p>
-</section></section>
-<section id="exercises-1" class="title-slide slide level1 center">
-<h1>Exercises</h1>
+<p><span class="math inline">\(\scriptsize\textit{[result is old; Chen &amp; Lumley (2020) pointed out the influence-function connection]}\)</span></p>
+</section>
+<section id="imputation-2" class="slide level2">
+<h2>Imputation</h2>
+<p>Estimating <span class="math inline">\(\sigma_k\)</span> for influence functions needs simulation of <span class="math inline">\(X\)</span> (?obviously)</p>
+<ul>
+<li>Single imputation based on <span class="math inline">\(Z\)</span>, <span class="math inline">\(A\)</span> to get <span class="math inline">\(\hat X\)</span>, fit to get <span class="math inline">\(\hat h\)</span></li>
+<li>Multiple imputation based on <span class="math inline">\(Z\)</span>, <span class="math inline">\(A\)</span>, <span class="math inline">\(Y\)</span> to get <span class="math inline">\(X^*_{(m)}\)</span>, fit to get <span class="math inline">\(h^*_{(m)}\)</span>, average to get <span class="math inline">\(\hat h\)</span></li>
+</ul>
+<p>Gives optimal design for IPW, works ok for raking</p>
+</section>
+<section id="multiple-parameters" class="slide level2">
+<h2>Multiple parameters</h2>
+<p>Need to reduce <span class="math inline">\(\mathrm{var}[\hat\beta]\)</span> matrix to a single-number metric</p>
+<ul>
+<li>A-optimal: trace</li>
+<li>D-optimal: determinant</li>
+<li>E-optimal: maximum eigenvalue</li>
+<li>I-optimal: average prediction variance</li>
+</ul>
+<p>A-optimal is easy: take <span class="math inline">\(\sigma^2_k\)</span> as the sum of variances of influence functions and do Neyman-Wright allocation. Others probably need numerical optimisation.</p>
+</section>
+<section id="optimal-for-raking" class="slide level2">
+<h2>Optimal for raking?</h2>
+<p>Need to estimate <span class="math inline">\(\sigma^2_k=\mathrm{var}[h-\hat h]\)</span>, but we estimated <span class="math inline">\(\mathrm{var}[h]\)</span> by approximating with <span class="math inline">\(\mathrm{var}[\hat h]\)</span></p>
+<ul>
+<li>need more assumptions</li>
+</ul>
+</section>
+<section id="example-school-api" class="slide level2">
+<h2>Example: School API</h2>
+<p>Suppose we expect from past years that</p>
+<ul>
+<li>the distribution of API is approximately the same year to year</li>
+<li>the year-to-year change in a school’s API is about <span class="math inline">\(N(0,30^2)\)</span></li>
+</ul>
+<p>Then</p>
+<ul>
+<li><span class="math inline">\(\mathrm{var}[h]\)</span> is approximately <span class="math inline">\(\mathrm{var}[\hat h]\)</span> using 1999 API</li>
+<li><span class="math inline">\(\mathrm{var}[h-\hat h]\)</span> is approximately <span class="math inline">\(\mathrm{var}[z'e]\)</span> where <span class="math inline">\(e\sim N(0,30^2)\)</span></li>
+</ul>
+</section>
+<section id="without-raking" class="slide level2">
+<h2>Without raking</h2>
+<p>Optimal sampling for <span class="math inline">\(\beta_{ell}\)</span></p>
+<ul>
+<li>fit <code>api00~ell+emer+enroll</code></li>
+<li>extract <span class="math inline">\(h_{ell}\)</span></li>
+<li>divide into strata</li>
+<li>use Neyman allocation to choose sample size</li>
+</ul>
+</section>
+<section id="with-raking" class="slide level2">
+<h2>With raking</h2>
+<p>Optimal sampling for <span class="math inline">\(\beta_{ell}\)</span></p>
+<ul>
+<li>fit <code>e~emer+ell+enroll</code> with <code>e&lt;-rnorm(0,30)</code></li>
+<li>extract <span class="math inline">\(h_{ell}\)</span></li>
+<li>divide into strata</li>
+<li>use Neyman allocation to choose sample size</li>
+</ul>
+</section>
+<section id="optimall-package" class="slide level2">
+<h2><code>Optimall</code> package</h2>
+<ul>
+<li>sample size per stratum</li>
+<li>sampling</li>
+<li>multiwave versions</li>
+</ul>
+</section>
+<section class="slide level2">
 
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">library</span>(optimall)</span>
+<span id="cb37-2"><a href=""></a>m<span class="ot">&lt;-</span><span class="fu">glm</span>(api99<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">data=</span>apipop_no_na)</span>
+<span id="cb37-3"><a href=""></a>h<span class="ot">&lt;-</span>survey<span class="sc">:::</span><span class="fu">estfuns</span>(m)</span>
+<span id="cb37-4"><a href=""></a>h_ell<span class="ot">&lt;-</span>h[,<span class="dv">2</span>]</span>
+<span id="cb37-5"><a href=""></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">stratum=</span><span class="fu">cut</span>(h_ell,<span class="dv">5</span>), <span class="at">h=</span>h_ell)</span>
+<span id="cb37-6"><a href=""></a><span class="fu">optimum_allocation</span>(df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">y=</span><span class="st">"h"</span>,<span class="at">nsample=</span><span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                strata npop      sd       n_sd stratum_fraction stratum_size
+1 (-1.2e+04,-4.89e+03]  110 1102.77  121305.16             0.01            3
+2 (-4.89e+03,2.14e+03] 5424 1316.57 7141053.27             0.84          168
+3  (2.14e+03,9.18e+03]  563 1804.05 1015679.82             0.12           24
+4  (9.18e+03,1.62e+04]   52 2051.79  106693.27             0.01            3
+5  (1.62e+04,2.33e+04]    6 2637.59   15825.53             0.01            2</code></pre>
+</div>
+</div>
+<p>Ick</p>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a><span class="fu">library</span>(optimall)</span>
+<span id="cb39-2"><a href=""></a>m<span class="ot">&lt;-</span><span class="fu">glm</span>(api99<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">data=</span>apipop_no_na)</span>
+<span id="cb39-3"><a href=""></a>h<span class="ot">&lt;-</span>survey<span class="sc">:::</span><span class="fu">estfuns</span>(m)</span>
+<span id="cb39-4"><a href=""></a>h_ell<span class="ot">&lt;-</span>h[,<span class="dv">2</span>]</span>
+<span id="cb39-5"><a href=""></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">stratum=</span><span class="fu">cut</span>(h_ell,<span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="sc">-</span><span class="dv">3000</span>,<span class="sc">-</span><span class="dv">1000</span>,<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="cn">Inf</span>)),</span>
+<span id="cb39-6"><a href=""></a>               <span class="at">h=</span>h_ell)</span>
+<span id="cb39-7"><a href=""></a><span class="fu">optimum_allocation</span>(df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">y=</span><span class="st">"h"</span>,<span class="at">nsample=</span><span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           strata npop      sd      n_sd stratum_fraction stratum_size
+1   (-Inf,-3e+03]  447 1234.56  551846.7             0.12           25
+2 (-3e+03,-1e+03] 1048  552.92  579459.2             0.13           26
+3  (-1e+03,1e+03] 3576  446.15 1595431.5             0.36           72
+4   (1e+03,3e+03]  650  565.45  367541.6             0.08           16
+5    (3e+03, Inf]  434 3142.10 1363672.8             0.30           61</code></pre>
+</div>
+</div>
+<p>🎉🎉</p>
+</section>
+<section id="sampling" class="slide level2">
+<h2>Sampling</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">2026-7-15</span>)</span>
+<span id="cb41-2"><a href=""></a>df<span class="sc">$</span>id<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)</span>
+<span id="cb41-3"><a href=""></a>des<span class="ot">&lt;-</span><span class="fu">optimum_allocation</span>(df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">y=</span><span class="st">"h"</span>,<span class="at">nsample=</span><span class="dv">200</span>)</span>
+<span id="cb41-4"><a href=""></a>the_sample<span class="ot">&lt;-</span><span class="fu">sample_strata</span>(<span class="at">data=</span>df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">id=</span><span class="st">"id"</span>, <span class="at">design_data=</span>des,<span class="at">design_strata=</span><span class="st">"strata"</span>,<span class="at">n_allocated=</span><span class="st">"stratum_size"</span>)</span>
+<span id="cb41-5"><a href=""></a><span class="fu">table</span>(the_sample<span class="sc">$</span>sample_indicator)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1 
+5955  200 </code></pre>
+</div>
+</div>
+</section>
+<section id="fitting" class="slide level2">
+<h2>Fitting</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>apipop_no_na<span class="sc">$</span>sample_strata<span class="ot">&lt;-</span>the_sample<span class="sc">$</span>stratum</span>
+<span id="cb43-2"><a href=""></a>apipop_no_na<span class="sc">$</span>in_sample<span class="ot">&lt;-</span>the_sample<span class="sc">$</span>sample_indicator<span class="sc">==</span><span class="dv">1</span></span>
+<span id="cb43-3"><a href=""></a></span>
+<span id="cb43-4"><a href=""></a>d2api_opt<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>),</span>
+<span id="cb43-5"><a href=""></a>  <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>, <span class="sc">~</span>sample_strata),</span>
+<span id="cb43-6"><a href=""></a>  <span class="at">subset=</span><span class="sc">~</span>in_sample, <span class="at">data=</span>apipop_no_na</span>
+<span id="cb43-7"><a href=""></a>)</span>
+<span id="cb43-8"><a href=""></a></span>
+<span id="cb43-9"><a href=""></a>mopt<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">design=</span>d2api_opt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(msrs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate   Std. Error    t value      Pr(&gt;|t|)
+(Intercept) 768.48918307 12.749246025  60.277226 1.825806e-128
+ell          -3.16102000  0.295543580 -10.695614  2.521297e-21
+emer         -3.02624894  0.612815234  -4.938273  1.683057e-06
+enroll       -0.02606491  0.008951494  -2.911794  4.010153e-03</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model0))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.14929299 12.48592716 64.164181 1.347911e-132
+ell          -2.99157697  0.31471992 -9.505521  7.835588e-18
+emer         -3.30165579  0.63592547 -5.191891  5.233058e-07
+enroll       -0.05311036  0.01025413 -5.179413  5.549932e-07</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(mopt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error    t value      Pr(&gt;|t|)
+(Intercept) 810.19032385 14.44179126  56.100404 5.000346e-121
+ell          -3.78171031  0.27088869 -13.960384  4.951187e-31
+emer         -2.96375590  0.53201897  -5.570771  8.481760e-08
+enroll       -0.03824348  0.01517063  -2.520889  1.251958e-02</code></pre>
+</div>
+</div>
+<p>Better results for <code>ell</code>, and closer to true value of -3.59</p>
+</section>
+<section id="now-raking" class="slide level2">
+<h2>Now raking</h2>
+<p>We’re thinking of change in API as random, so only</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">2026-7-15</span>)</span>
+<span id="cb50-2"><a href=""></a>apipop_no_na<span class="sc">$</span>delta_api<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="fu">nrow</span>(apipop_no_na),<span class="fu">fitted</span>(m),<span class="dv">30</span>)</span>
+<span id="cb50-3"><a href=""></a>m_delta<span class="ot">&lt;-</span><span class="fu">glm</span>(delta_api<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">data=</span>apipop_no_na)</span>
+<span id="cb50-4"><a href=""></a>h<span class="ot">&lt;-</span>survey<span class="sc">:::</span><span class="fu">estfuns</span>(m_delta)</span>
+<span id="cb50-5"><a href=""></a>h_ell<span class="ot">&lt;-</span>h[,<span class="dv">2</span>]</span>
+<span id="cb50-6"><a href=""></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">stratum=</span><span class="fu">cut</span>(h_ell,<span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="sc">-</span><span class="dv">1000</span>,<span class="sc">-</span><span class="dv">200</span>,<span class="dv">200</span>, <span class="dv">1000</span>, <span class="cn">Inf</span>)),</span>
+<span id="cb50-7"><a href=""></a>               <span class="at">h=</span>h_ell)</span>
+<span id="cb50-8"><a href=""></a><span class="fu">optimum_allocation</span>(df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">y=</span><span class="st">"h"</span>,<span class="at">nsample=</span><span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         strata npop     sd     n_sd stratum_fraction stratum_size
+1 (-Inf,-1e+03]  534 883.50 471791.0             0.28           56
+2 (-1e+03,-200] 1157 222.65 257604.7             0.15           30
+3    (-200,200] 2743  90.13 247225.0             0.14           29
+4   (200,1e+03] 1183 225.16 266360.8             0.16           31
+5  (1e+03, Inf]  538 854.02 459464.4             0.27           54</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a>df<span class="sc">$</span>id<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)</span>
+<span id="cb52-2"><a href=""></a>des<span class="ot">&lt;-</span><span class="fu">optimum_allocation</span>(df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">y=</span><span class="st">"h"</span>,<span class="at">nsample=</span><span class="dv">200</span>)</span>
+<span id="cb52-3"><a href=""></a>the_sample<span class="ot">&lt;-</span><span class="fu">sample_strata</span>(<span class="at">data=</span>df,<span class="at">strata=</span><span class="st">"stratum"</span>,<span class="at">id=</span><span class="st">"id"</span>, <span class="at">design_data=</span>des,<span class="at">design_strata=</span><span class="st">"strata"</span>,<span class="at">n_allocated=</span><span class="st">"stratum_size"</span>)</span>
+<span id="cb52-4"><a href=""></a><span class="fu">table</span>(the_sample<span class="sc">$</span>sample_indicator)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1 
+5955  200 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href=""></a>apipop_no_na<span class="sc">$</span>sample_strata<span class="ot">&lt;-</span>the_sample<span class="sc">$</span>stratum</span>
+<span id="cb54-2"><a href=""></a>apipop_no_na<span class="sc">$</span>in_sample<span class="ot">&lt;-</span>the_sample<span class="sc">$</span>sample_indicator<span class="sc">==</span><span class="dv">1</span></span>
+<span id="cb54-3"><a href=""></a></span>
+<span id="cb54-4"><a href=""></a>d2api_opt<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>),</span>
+<span id="cb54-5"><a href=""></a>  <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>, <span class="sc">~</span>sample_strata),</span>
+<span id="cb54-6"><a href=""></a>  <span class="at">subset=</span><span class="sc">~</span>in_sample, <span class="at">data=</span>apipop_no_na</span>
+<span id="cb54-7"><a href=""></a>)</span>
+<span id="cb54-8"><a href=""></a>m_ph1<span class="ot">&lt;-</span><span class="fu">glm</span>(api99<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">data=</span>apipop_no_na)</span>
+<span id="cb54-9"><a href=""></a>d2api_rakeopt<span class="ot">&lt;-</span><span class="fu">calibrate</span>(d2api_opt, <span class="at">formula=</span>m_ph1,</span>
+<span id="cb54-10"><a href=""></a>                         <span class="at">phase=</span><span class="dv">2</span>,<span class="at">calfun=</span><span class="st">"raking"</span>)</span>
+<span id="cb54-11"><a href=""></a>mrakeopt<span class="ot">&lt;-</span><span class="fu">svyglm</span>(api00<span class="sc">~</span>ell<span class="sc">+</span>emer<span class="sc">+</span>enroll,<span class="at">design=</span>d2api_rakeopt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(msrs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate   Std. Error    t value      Pr(&gt;|t|)
+(Intercept) 768.48918307 12.749246025  60.277226 1.825806e-128
+ell          -3.16102000  0.295543580 -10.695614  2.521297e-21
+emer         -3.02624894  0.612815234  -4.938273  1.683057e-06
+enroll       -0.02606491  0.008951494  -2.911794  4.010153e-03</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(model_h))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error   t value      Pr(&gt;|t|)
+(Intercept) 801.74938976 4.126594175 194.28840 3.167425e-224
+ell          -3.63459562 0.123813218 -29.35547  2.708080e-73
+emer         -2.49786997 0.161315309 -15.48440  9.713470e-36
+enroll       -0.04182092 0.003760623 -11.12074  1.527149e-22</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(mrakeopt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error    t value      Pr(&gt;|t|)
+(Intercept) 810.25678041 6.523438876 124.207001 2.331193e-185
+ell          -3.60345468 0.122316387 -29.460114  3.751308e-73
+emer         -2.64427952 0.301637235  -8.766423  9.775962e-16
+enroll       -0.04900074 0.006259283  -7.828490  3.246856e-13</code></pre>
+</div>
+</div>
+<p>Design/raking compete to use the phase-1 info</p>
+</section>
+<section id="multiwave-sampling" class="slide level2">
+<h2>Multiwave sampling</h2>
+<p>Take the phase-two sampling incrementally in multiple steps</p>
+<p>Helps with two problems</p>
+<ul>
+<li>we don’t know <span class="math inline">\(\beta\)</span></li>
+<li>we don’t know <span class="math inline">\(\sigma^2_k\)</span></li>
+<li>(we don’t know what’s wrong with the data)</li>
+</ul>
+</section>
+<section id="sampling-1" class="slide level2">
+<h2>Sampling</h2>
+<ul>
+<li>We’ve sampled <span class="math inline">\(n_k^{old}\)</span> already</li>
+<li>Impute with current <span class="math inline">\(X\)</span> and all phase 1</li>
+<li>Estimate <span class="math inline">\(\sigma^2_k\)</span></li>
+<li>Do Neyman(-Wright) allocation to get <span class="math inline">\(\hat n_k\)</span></li>
+<li>Divide <span class="math inline">\(\hat n_k- n_k^{old}\)</span> over future waves (or zero if <span class="math inline">\(\hat n_k\leq  n_k^{old}\)</span> )</li>
+</ul>
+</section>
+<section id="choosing-waves" class="slide level2">
+<h2>Choosing waves</h2>
+<ul>
+<li>two waves is better than one.</li>
+<li>diminishing returns with many waves, but cost is fairly small.</li>
+<li>more opportunity to fix problems with more waves</li>
+<li>first wave needs not to be too small</li>
+<li>first wave needs not to be larger than optimal <span class="math inline">\(n_k\)</span> in any strata</li>
+<li>strata can’t be too small because we are post-stratifying</li>
+</ul>
+<p>[Reilly, 1996; McIsaac &amp; Cook, 2015; Chen &amp; Lumley 2020,2022]</p>
+</section>
+<section id="individual-sampling" class="slide level2">
+<h2>Individual sampling?</h2>
+<p>Instead of (?arbitrary) strata, can we optimise sampling probabilities per individual?</p>
+<ul>
+<li>Yes</li>
+<li>Turns out to be a bad idea</li>
+</ul>
+</section>
+<section id="optimal-pi" class="slide level2">
+<h2>Optimal <span class="math inline">\(\pi\)</span></h2>
+<p>The optimal probabilities are known (Lagrange multipliers)</p>
+<p><span class="math display">\[\pi_i \propto \|h_i\|\]</span> where <span class="math inline">\(\|h_i\|\)</span> is just the absolute value for a single parameter and the Euclidean norm for <span class="math inline">\(A\)</span>-optimality with multiple parameters.</p>
+</section>
+<section id="from-pi-to-sample" class="slide level2">
+<h2>From <span class="math inline">\(\pi\)</span> to sample</h2>
+<p>Can sample</p>
+<ul>
+<li>independently with probabilities <span class="math inline">\(\pi_i\)</span> (random sample size)</li>
+<li>sequentially with probabilities proportional to remaining <span class="math inline">\(\pi_i\)</span> (doesn’t give <span class="math inline">\(\pi_i\)</span> as probabilities)</li>
+</ul>
+<p>More <em>flexible</em> than stratified sampling</p>
+</section>
+<section id="negative-correlations" class="slide level2">
+<h2>Negative correlations</h2>
+<p>The Horvitz-Thompson variance estimator is <span class="math display">\[\sum_{i,j} \frac{h_i}{\pi_i}\frac{h_j}{\pi_h}\frac{\mathrm{cov}[R_i,R_j]}{\pi_i\pi_j}\]</span></p>
+<ul>
+<li>Poisson/sequential has <span class="math inline">\(\mathrm{cov}[R_i,R_j]\approx 0\)</span> for <span class="math inline">\(i\neq j\)</span></li>
+<li>Stratified sampling has <span class="math inline">\(\mathrm{cov}[R_i,R_j]&lt; 0\)</span> for <span class="math inline">\(i\neq j\)</span></li>
+</ul>
+<p>Under stratified sampling only within-stratum differences contribute to the total variance!!</p>
+<p><span class="math inline">\(\scriptsize\textit{[Yang et al (2025) does comparisons]}\)</span></p>
+</section></section>
+<section id="exercises-2" class="title-slide slide level1 center">
+<h1>Exercises</h1>
+<p>and questions</p>
 </section>
 
-<section id="discussion-1" class="title-slide slide level1 center">
+<section id="discussion-2" class="title-slide slide level1 center">
 <h1>Discussion</h1>
 
 </section>
@@ -455,7 +1243,7 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <h2>Agenda</h2>
 <p>We have not been assuming the outcome model <span class="math inline">\(Y|X,Z\)</span> is correctly specified</p>
 <p>The <em>semiparametric information bound</em> is much worse if you don’t assume <span class="math inline">\(Y|X,Z\)</span> is correct</p>
-<p>Now we will look at semiparametric likelihood analyses</p>
+<p>Now look at semiparametric likelihood analyses:</p>
 <ul>
 <li>The Auckland school: NPMLE for discrete phase-1 data (<code>missreg3</code>)</li>
 <li>Tao, Lin, Lotspeich <em>et al</em>: NPMLE for continuous phase-1 data and arbitrary measurement error (<code>sleev</code>)</li>
@@ -502,21 +1290,458 @@ cc_design&lt;-twophase(id=list(~1,~1),
 <li>Model-assisted: weighted logistic regression (<code>svyglm</code>)</li>
 <li>Model-based: unweighted logistic regression (<code>glm</code>) is MLE (Prentice &amp; Pyke) and is fully efficient (Breslow, Robins, Wellner)</li>
 </ul>
-<p>Large effiency gains with model-based estimation, but mostly for strong effects of continuous covariates. Gain is sensitive to model correctness.</p>
-<p>Optimal design is roughly the same for both</p>
+<p>Large efficiency gains with model-based estimation, but mostly for strong effects of continuous covariates. Gain is sensitive to model correctness.</p>
+<p>Optimal <strong>design</strong> is roughly the same for both: equal numbers of cases and controls</p>
+</section>
+<section id="efficiency-gain-varies" class="slide level2">
+<h2>Efficiency gain varies</h2>
+<p><span class="math inline">\(\small\text{Ille-et-Villaine case-control study: tobacco, alcohol, oesophageal cancer}\)</span></p>
+
+<img data-src="TWOPHASE-SISCER_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
+<section id="misspecification" class="slide level2">
+<h2>Misspecification</h2>
+<p>The benefit of MLE over raking is <span class="math inline">\(O(n^{-1/2})\)</span> when the model is correct, so we must also care about <span class="math inline">\(O(n^{-1/2})\)</span> biases from misspecification.</p>
+<p>These are misspecifications that are not reliably detectable: an omitted variable with <span class="math inline">\(\delta/\sqrt{n}\)</span> coefficient can be detected asymptotically with power <span class="math inline">\(&lt;1\)</span> depending on <span class="math inline">\(\delta\)</span>.</p>
+<p>Han <em>et al</em> (2021) confirmed that worst-case directions of misspecification will make the MLE less accurate than weighted estimation (for estimating the full-cohort best-fitting model.)</p>
+</section>
+<section id="worst-case-behaviour" class="slide level2">
+<h2>Worst-case behaviour</h2>
+
+<img data-src="./misspec.png" class="r-stretch"><p>This is <strong>universal</strong> (contiguity)</p>
+</section>
+<section class="slide level2">
+
+<p>Take-home message</p>
+<ul>
+<li>MLE can sometimes provide large precision gains</li>
+<li>Gains are sensitive to <em>exact</em> model specification (untestably good)</li>
+<li><em>you pays your money and you take your choice</em></li>
+</ul>
+</section>
+<section id="multiple-imputation" class="slide level2">
+<h2>Multiple imputation</h2>
+<ul>
+<li>If the models are correct, MI will give the MLE as the number of imputations <span class="math inline">\(\to\infty\)</span></li>
+<li>Lots of software out there</li>
+<li>Two-phase designs tend to have very high missing rates…</li>
+</ul>
+<p>Giganti <em>et al</em> (2020) looked at validation studies by imputation.</p>
 </section>
 <section id="generalising-case-control" class="slide level2">
 <h2>Generalising case-control</h2>
-<p><code>missreg</code></p>
+<p>Chris Wild &amp; Alastair Scott (<em>et al</em>), Breslow (<em>et al</em>)</p>
+<p>Given a model for <span class="math inline">\(Y|X,Z\)</span> and a sampling rule for <span class="math inline">\(R|Y,Z,A\)</span> we can derive sampling weights from the model and the population distribution of <span class="math inline">\(Y,Z,A\)</span></p>
+<p>Need discrete strata <span class="math inline">\(S=Y\times A\)</span> but not discrete <span class="math inline">\(X,Z\)</span></p>
+<p>Using these weights instead of design weights or post-stratification weights gives maximum likelihood estimates. (needs iterative maximisation)</p>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li>Wilms’ Tumour is a rare childhood kidney cancer, mostly curable. Histology (cell weirdness) and Stage (amount of spread) are important predictors of outcome.</li>
+<li>Histology is hard to assess. This one guy was better at it than anyone else</li>
+<li>we have <code>hist</code> from him and <code>inst</code> from the local institution pathologist</li>
+<li>let’s pretend we have <code>hist</code> only on a subsample</li>
+<li>data access thanks to Norm Breslow and National Wilms’ Tumour Study Group</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href=""></a><span class="fu">library</span>(missreg3)</span>
+<span id="cb61-2"><a href=""></a>nwts<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"nwts-share.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb61-3"><a href=""></a><span class="fu">names</span>(nwts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "trel"    "tsur"    "relaps"  "dead"    "study"   "stage"   "histol" 
+ [8] "instit"  "age"     "yr"      "specwgt" "tumdiam"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href=""></a><span class="fu">with</span>(nwts, <span class="fu">table</span>(relaps, instit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      instit
+relaps    0    1
+     0 3026  220
+     1  507  162</code></pre>
+</div>
+</div>
+<p>Take everyone with unfavorable histology or who relapsed and 10% of the rest (not actually optimal but simple)</p>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href=""></a>nwts<span class="sc">$</span>in_sample<span class="ot">&lt;-</span><span class="fu">with</span>(nwts, relaps<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> instit<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb65-2"><a href=""></a>ok<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="fu">which</span>(<span class="sc">!</span>nwts<span class="sc">$</span>in_sample),<span class="dv">300</span>)</span>
+<span id="cb65-3"><a href=""></a>nwts<span class="sc">$</span>in_sample[ok]<span class="ot">&lt;-</span><span class="cn">TRUE</span></span>
+<span id="cb65-4"><a href=""></a><span class="fu">with</span>(nwts, <span class="fu">table</span>(relaps, instit, in_sample))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , in_sample = FALSE
+
+      instit
+relaps    0    1
+     0 2726    0
+     1    0    0
+
+, , in_sample = TRUE
+
+      instit
+relaps    0    1
+     0  300  220
+     1  507  162</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a>nwts<span class="sc">$</span>obstype<span class="ot">&lt;-</span><span class="fu">ifelse</span>(nwts<span class="sc">$</span>in_sample, <span class="st">"retro"</span>,<span class="st">"strata"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a>z4 <span class="ot">&lt;-</span> <span class="fu">bin2stg</span>(relaps <span class="sc">~</span> <span class="fu">factor</span>(stage)<span class="sc">*</span>histol, </span>
+<span id="cb68-2"><a href=""></a>              <span class="at">xstrata=</span><span class="st">"instit"</span>, </span>
+<span id="cb68-3"><a href=""></a>              <span class="at">data=</span>nwts, <span class="at">xs.includes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb68-4"><a href=""></a>sz4<span class="ot">&lt;-</span><span class="fu">summary</span>(z4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a>sz4<span class="sc">$</span>coef.table1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Df       Chi     Pr(&gt;Chi)
+factor(stage)         3 26.581206 7.206003e-06
+histol                1 11.236698 8.019569e-04
+factor(stage):histol  3  8.350028 3.930537e-02</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a>sz4<span class="sc">$</span>coef.table2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Estimate Std. Error    z value     Pr(&gt;|z|)
+(Intercept)           -2.2760169  0.1084557 -20.985679 0.000000e+00
+factor(stage)2         0.5495976  0.1884715   2.916078 3.544617e-03
+factor(stage)3         0.5438782  0.1983078   2.742596 6.095568e-03
+factor(stage)4         1.1474769  0.2339542   4.904707 9.356679e-07
+histol                 0.9492171  0.2831693   3.352118 8.019569e-04
+factor(stage)2:histol  0.4586675  0.3844326   1.193102 2.328293e-01
+factor(stage)3:histol  0.9083360  0.3756430   2.418083 1.560251e-02
+factor(stage)4:histol  1.1206074  0.4627113   2.421828 1.544265e-02</code></pre>
+</div>
+</div>
+</section>
+<section id="compare-weighted" class="slide level2">
+<h2>Compare weighted</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href=""></a>dwilms<span class="ot">&lt;-</span><span class="fu">twophase</span>(<span class="at">id=</span><span class="fu">list</span>(<span class="sc">~</span><span class="dv">1</span>,<span class="sc">~</span><span class="dv">1</span>),</span>
+<span id="cb73-2"><a href=""></a>                 <span class="at">strata=</span><span class="fu">list</span>(<span class="cn">NULL</span>, <span class="sc">~</span><span class="fu">interaction</span>(relaps,instit)),</span>
+<span id="cb73-3"><a href=""></a>                 <span class="at">subset=</span><span class="sc">~</span>in_sample, <span class="at">data=</span>nwts)</span>
+<span id="cb73-4"><a href=""></a>ipw_wilms<span class="ot">&lt;-</span><span class="fu">svyglm</span>(relaps<span class="sc">~</span><span class="fu">factor</span>(stage)<span class="sc">*</span>histol, <span class="at">design=</span>dwilms, </span>
+<span id="cb73-5"><a href=""></a>       <span class="at">family=</span>quasibinomial)</span>
+<span id="cb73-6"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(ipw_wilms))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Estimate Std. Error    t value     Pr(&gt;|t|)
+(Intercept)           -2.2709613  0.1091076 -20.813961 3.473160e-82
+factor(stage)2         0.5563211  0.1892441   2.939701 3.349389e-03
+factor(stage)3         0.5374950  0.1992506   2.697583 7.084199e-03
+factor(stage)4         1.1934787  0.2451480   4.868401 1.277969e-06
+histol                 0.7317742  0.3216045   2.275386 2.306178e-02
+factor(stage)2:histol  0.6380708  0.4451851   1.433271 1.520458e-01
+factor(stage)3:histol  1.1338488  0.4259281   2.662066 7.871984e-03
+factor(stage)4:histol  1.0352510  0.6084326   1.701505 8.911215e-02</code></pre>
+</div>
+</div>
+</section>
+<section id="compare-raking" class="slide level2">
+<h2>Compare raking</h2>
+<p>We will impute <code>histol</code> using all the variables, fit a model at phase 1 using the imputed values, then calibrate</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a> wilms_imp <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(histol<span class="sc">~</span>instit<span class="sc">*</span>stage<span class="sc">+</span><span class="fu">I</span>(age<span class="sc">&gt;</span><span class="dv">10</span>),</span>
+<span id="cb75-2"><a href=""></a>                    <span class="at">family=</span>quasibinomial, <span class="at">design=</span>dwilms)</span>
+<span id="cb75-3"><a href=""></a> nwts<span class="sc">$</span>imphist <span class="ot">&lt;-</span> <span class="fu">predict</span>(wilms_imp, <span class="at">newdata=</span>nwts, <span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb75-4"><a href=""></a> wilms_ph1<span class="ot">&lt;-</span><span class="fu">glm</span>(relaps<span class="sc">~</span>stage<span class="sc">*</span>imphist<span class="sc">+</span>age<span class="sc">*</span><span class="fu">I</span>(age<span class="sc">&gt;</span><span class="dv">10</span>)<span class="sc">+</span>tumdiam,<span class="at">family=</span>binomial,<span class="at">data=</span>nwts)</span>
+<span id="cb75-5"><a href=""></a> dwilms_cal<span class="ot">&lt;-</span><span class="fu">calibrate</span>(dwilms, <span class="at">formula=</span>wilms_ph1, <span class="at">phase=</span><span class="dv">2</span>, <span class="at">calfun=</span><span class="st">"raking"</span>)</span>
+<span id="cb75-6"><a href=""></a> rake_wilms<span class="ot">&lt;-</span><span class="fu">svyglm</span>(relaps<span class="sc">~</span><span class="fu">factor</span>(stage)<span class="sc">*</span>histol, <span class="at">design=</span>dwilms_cal, </span>
+<span id="cb75-7"><a href=""></a>       <span class="at">family=</span>quasibinomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(rake_wilms))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Estimate Std. Error    t value     Pr(&gt;|t|)
+(Intercept)           -2.2156619  0.1030314 -21.504730 8.533521e-87
+factor(stage)2         0.4972452  0.1884509   2.638593 8.434873e-03
+factor(stage)3         0.4280595  0.1809705   2.365355 1.817407e-02
+factor(stage)4         1.0451346  0.1788703   5.842974 6.629006e-09
+histol                 0.6937756  0.3201105   2.167300 3.041181e-02
+factor(stage)2:histol  0.6725682  0.4447030   1.512399 1.307007e-01
+factor(stage)3:histol  1.2261510  0.4218278   2.906758 3.720331e-03
+factor(stage)4:histol  1.1407461  0.6040004   1.888651 5.918407e-02</code></pre>
+</div>
+</div>
+<p>MLE still slightly better (it <em>assumes</em> <span class="math inline">\(\text{relaps}\perp\text{instit}\mid \text{histol}\)</span>)</p>
+</section>
+<section id="extensions" class="slide level2">
+<h2>Extensions</h2>
+<ul>
+<li><span class="math inline">\(Y\)</span> can be continuous: need to make finite set of bins for strata</li>
+<li>logistic mixed models: genetics, longitudinal</li>
+</ul>
+</section>
+<section id="limitations" class="slide level2">
+<h2>Limitations</h2>
+<p>Phase 1 data</p>
+<ul>
+<li>are only used as sampling strata</li>
+<li>must be discrete, low-dimensional</li>
+<li>Strata must be perfect surrogates: <span class="math inline">\([Y|Z,X,S]=[Y|Z,X]\)</span></li>
+</ul>
 </section>
 <section id="continuous-phase-1" class="slide level2">
 <h2>Continuous phase 1</h2>
+<ul>
+<li>[Y|X,Z] correctly specified</li>
+<li><span class="math inline">\(X\)</span> with measurement error is an <span class="math inline">\(A\)</span></li>
+<li><span class="math inline">\(Y\)</span> with measurement error is an <span class="math inline">\(A\)</span></li>
+<li>measurement error distribution is nonparametric</li>
+<li>phase 1 has to be low dimensional (eg, two-d)</li>
+</ul>
 </section>
-<section id="sieve-estimation" class="slide level2">
-<h2>Sieve estimation</h2>
-<p><code>sleev</code></p>
+<section id="sieve-estimation-sleev" class="slide level2">
+<h2>Sieve estimation: <code>sleev</code></h2>
+<p>Fit parametric models getting more flexible with increasing <span class="math inline">\(n\)</span></p>
+<ul>
+<li><span class="math inline">\(B\)</span>-splines for distribution of measurement errors given <span class="math inline">\(A\)</span></li>
+<li>If flexibility increases at the correct rate, this works like semiparametrics (cf regression splines)</li>
+<li>Risk: can be too parametric for small <span class="math inline">\(n\)</span>, too much work for large <span class="math inline">\(n\)</span></li>
+</ul>
+</section>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a><span class="fu">library</span>(sleev)</span>
+<span id="cb78-2"><a href=""></a><span class="fu">data</span>(<span class="st">"mock.vccc"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Synthetic version of HIV cohort from Vanderbilt University Medical Center</p>
+<ul>
+<li><span class="math inline">\(A\)</span>: CD4 count, viral load, AIDS-defining event <em>(with error)</em></li>
+<li><span class="math inline">\(X\)</span>: CD4 count, viral load, AIDS-defining event <em>(validated)</em></li>
+</ul>
+<p>Validation on simple random sample (Giganti <em>et al</em>, 2020)</p>
+</section>
+<section class="slide level2">
 
-</section></section>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href=""></a><span class="fu">with</span>(mock.vccc, <span class="fu">table</span>(ADE_val, ADE_unval))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ADE_unval
+ADE_val   0   1
+      0 738  52
+      1   6  39</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href=""></a><span class="fu">with</span>(mock.vccc, <span class="fu">table</span>(<span class="fu">is.na</span>(ADE_val), ADE_unval))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ADE_unval
+           0    1
+  FALSE  744   91
+  TRUE  1142  110</code></pre>
+</div>
+</div>
+
+<img data-src="TWOPHASE-SISCER_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" class="r-stretch"></section>
+<section id="example-2" class="slide level2">
+<h2>Example</h2>
+<p>Define 20-df spline basis for predicting error in <code>CD4_val</code>, then fit <code>ADE_val~CD4_val+Prior_ART</code> using all data and modelling measurement error</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a>sn <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb83-2"><a href=""></a>data.logistic <span class="ot">&lt;-</span> <span class="fu">spline2ph</span>(<span class="at">x =</span> <span class="st">"CD4_unval"</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">degree =</span> <span class="dv">3</span>,</span>
+<span id="cb83-3"><a href=""></a>                           <span class="at">data =</span> mock.vccc, <span class="at">group =</span> <span class="st">"Prior_ART"</span>,</span>
+<span id="cb83-4"><a href=""></a>                           <span class="at">split_group =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb83-5"><a href=""></a>res_logistic <span class="ot">&lt;-</span> <span class="fu">logistic2ph</span>(<span class="at">y =</span> <span class="st">"ADE_val"</span>, <span class="at">y_unval =</span> <span class="st">"ADE_unval"</span>,</span>
+<span id="cb83-6"><a href=""></a>                           <span class="at">x =</span> <span class="st">"CD4_val"</span>, <span class="at">x_unval =</span> <span class="st">"CD4_unval"</span>,</span>
+<span id="cb83-7"><a href=""></a>                            <span class="at">z =</span> <span class="st">"Prior_ART"</span>, <span class="at">data =</span> data.logistic,</span>
+<span id="cb83-8"><a href=""></a>                            <span class="at">hn_scale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">tol =</span> <span class="fl">1e-04</span>,</span>
+<span id="cb83-9"><a href=""></a>                            <span class="at">max_iter =</span> <span class="dv">1000</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href=""></a><span class="fu">summary</span>(res_logistic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+logistic2ph(y_unval = "ADE_unval", y = "ADE_val", x_unval = "CD4_unval", 
+    x = "CD4_val", z = "Prior_ART", data = data.logistic, hn_scale = 1/2, 
+    se = TRUE, tol = 1e-04, max_iter = 1000, verbose = FALSE)
+
+Coefficients:
+              Estimate          SE   Statistic      p-value
+Intercept -1.574657457 0.294924144  -5.3391948 9.336029e-08
+CD4_val   -0.007716374 0.000360677 -21.3941372 0.000000e+00
+Prior_ART -0.187432734 0.294781954  -0.6358352 5.248839e-01</code></pre>
+</div>
+</div>
+</section>
+<section id="compare-to-raking" class="slide level2">
+<h2>Compare to raking</h2>
+<p>We did this one yesterday</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">svyglm</span>(ADE_val<span class="sc">~</span>CD4_val<span class="sc">+</span>Prior_ART,</span>
+<span id="cb86-2"><a href=""></a>                    <span class="at">design=</span>dvccc_cal, </span>
+<span id="cb86-3"><a href=""></a>                    <span class="at">family=</span>quasibinomial)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Estimate  Std. Error    t value     Pr(&gt;|t|)
+(Intercept) -1.700874473 0.296411744 -5.7382155 1.339677e-08
+CD4_val     -0.006982936 0.001579938 -4.4197535 1.118907e-05
+Prior_ART   -0.140060831 0.288632819 -0.4852561 6.276225e-01</code></pre>
+</div>
+</div>
+<p>Pretty comparable in this example (maybe because SRS)</p>
+</section>
+<section id="linear-model" class="slide level2">
+<h2>Linear model</h2>
+<p>CD4 count vs viral load:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    VL_unval             VL_val           ADE_unval          ADE_val       
+ Min.   :      6.0   Min.   :       2   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:    195.5   1st Qu.:     184   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :   1339.0   Median :    1332   Median :0.00000   Median :0.00000  
+ Mean   :  49651.9   Mean   :  141814   Mean   :0.09631   Mean   :0.05389  
+ 3rd Qu.:  11841.0   3rd Qu.:   11274   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :7583057.0   Max.   :64919534   Max.   :1.00000   Max.   :1.00000  
+                     NA's   :1252                         NA's   :1252     
+   CD4_unval       CD4_val      
+ Min.   :   0   Min.   :   0.0  
+ 1st Qu.:  99   1st Qu.: 103.0  
+ Median : 209   Median : 211.0  
+ Mean   : 255   Mean   : 258.1  
+ 3rd Qu.: 366   3rd Qu.: 364.0  
+ Max.   :1489   Max.   :1078.0  
+                NA's   :1252    </code></pre>
+</div>
+</div>
+<p>Need a log transformation of viral load</p>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href=""></a>mock.vccc<span class="sc">$</span>lVL_unval<span class="ot">&lt;-</span><span class="fu">log10</span>(mock.vccc<span class="sc">$</span>VL_unval)</span>
+<span id="cb89-2"><a href=""></a>mock.vccc<span class="sc">$</span>lVL_val<span class="ot">&lt;-</span><span class="fu">log10</span>(mock.vccc<span class="sc">$</span>VL_val)</span>
+<span id="cb89-3"><a href=""></a> </span>
+<span id="cb89-4"><a href=""></a>sn <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb89-5"><a href=""></a>data.linear <span class="ot">&lt;-</span> <span class="fu">spline2ph</span>(<span class="at">x =</span> <span class="st">"lVL_unval"</span>, <span class="at">data =</span> mock.vccc, <span class="at">size =</span> sn,</span>
+<span id="cb89-6"><a href=""></a>                         <span class="at">degree =</span> <span class="dv">3</span>,  <span class="at">group =</span> <span class="st">"Sex"</span>)</span>
+<span id="cb89-7"><a href=""></a>res_linear <span class="ot">&lt;-</span> <span class="fu">linear2ph</span>(<span class="at">y_unval =</span> <span class="st">"CD4_unval"</span>, <span class="at">y =</span> <span class="st">"CD4_val"</span>,</span>
+<span id="cb89-8"><a href=""></a>                        <span class="at">x_unval =</span> <span class="st">"lVL_unval"</span>, <span class="at">x =</span> <span class="st">"lVL_val"</span>,</span>
+<span id="cb89-9"><a href=""></a>                        <span class="at">z =</span> <span class="st">"Sex"</span>, <span class="at">data =</span> data.linear,  <span class="at">hn_scale =</span> <span class="dv">1</span>,</span>
+<span id="cb89-10"><a href=""></a>                        <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">tol =</span> <span class="fl">1e-04</span>, <span class="at">max_iter =</span> <span class="dv">1000</span>,</span>
+<span id="cb89-11"><a href=""></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="results" class="slide level2">
+<h2>Results</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href=""></a><span class="fu">summary</span>(res_linear)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+linear2ph(y_unval = "CD4_unval", y = "CD4_val", x_unval = "lVL_unval", 
+    x = "lVL_val", z = "Sex", data = data.linear, hn_scale = 1, 
+    se = TRUE, tol = 1e-04, max_iter = 1000, verbose = FALSE)
+
+Coefficients:
+           Estimate        SE Statistic      p-value
+Intercept 273.13537 15.148279 18.030786 0.0000000000
+lVL_val   -13.49624  3.802844 -3.548986 0.0003867174
+Sex        25.14649 10.447723  2.406887 0.0160891624</code></pre>
+</div>
+</div>
+</section>
+<section id="raking" class="slide level2">
+<h2>Raking</h2>
+<p><strong>Workflow</strong></p>
+<ul>
+<li>impute <span class="math inline">\(X, Y\)</span>: <code>ADE_val</code>, <code>CD4_val</code> in subsample</li>
+<li>predict to get <code>ADE_hat</code>, <code>CD4_hat</code> for everyone</li>
+<li>fit phase-1 model <code>ADE_hat~CD4_hat+Prior_ART</code> with <code>hat</code> versions <strong>for everyone</strong></li>
+<li>extract influence functions</li>
+<li>calibrate to influence functions</li>
+<li>fit <code>ADE_val~CD4_val+Prior_ART</code> in calibrated design</li>
+</ul>
+<p>(see <code>vccc_raking_vl.R</code>)</p>
+</section>
+<section id="result" class="slide level2">
+<h2>result</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">svyglm</span>(CD4_val<span class="sc">~</span><span class="fu">log10</span>(VL_val)<span class="sc">+</span>Sex,<span class="at">design=</span>dvccc)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Estimate Std. Error  t value     Pr(&gt;|t|)
+(Intercept)   286.36175  24.614027 11.63409 4.303303e-29
+log10(VL_val) -16.95939   6.222465 -2.72551 6.555110e-03
+Sex            33.39689  15.545944  2.14827 3.198036e-02</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href=""></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">svyglm</span>(CD4_val<span class="sc">~</span><span class="fu">log10</span>(VL_val)<span class="sc">+</span>Sex,<span class="at">design=</span>dvccc_cal)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept)   278.27687  16.712673 16.650650 6.043543e-54
+log10(VL_val) -13.46006   4.259502 -3.160007 1.634710e-03
+Sex            22.71757  10.297633  2.206096 2.764985e-02</code></pre>
+</div>
+</div>
+<p>MLE still somewhat better than raking</p>
+</section>
+<section id="optimal-design-2" class="slide level2">
+<h2>Optimal design</h2>
+<p>The optimal design for <code>sleev</code> need not have <span class="math inline">\(\pi&gt;0\)</span></p>
+<ul>
+<li>typically doesn’t for continuous <span class="math inline">\(Y\)</span> or <span class="math inline">\(X\)</span></li>
+</ul>
+<p>In general not known,</p>
+<ul>
+<li>for small <span class="math inline">\(\beta\)</span> the optimal is to sample extremes of the score function</li>
+<li>sampling extremes of residuals is a good approximation</li>
+<li><span class="math inline">\(\pi_i=0\)</span> in the middle</li>
+</ul>
+<p>(Tao <em>et al</em>, 2020)</p>
+</section>
+<section id="misspecification-1" class="slide level2">
+<h2>Misspecification</h2>
+<p>Optimal design is very sensitive to model specification</p>
+<ul>
+<li>slight misspecification can give higher MSE from optimal design than less extreme design</li>
+<li>bias is not <strong>large</strong> but is same size as precision gain</li>
+</ul>
+</section>
+<section id="example-3" class="slide level2">
+<h2>Example</h2>
+<p><span class="math display">\[Y=\beta_0+\beta_1X+N(0,1)\]</span> <span class="math display">\[A= X+N(0,1)\]</span></p>
+<ul>
+<li><strong>True generative model:}</strong>: <span class="math inline">\(Y\)</span> is linear spline in <span class="math inline">\(X\)</span> with knots at <span class="math inline">\(\pm 1\)</span>.</li>
+<li><strong>Sampling model:</strong> sampling from 10 strata at deciles of <span class="math inline">\(A\)</span>,\ total 10%</li>
+<li><strong>Target of inference:</strong> <span class="math inline">\(\hat\beta_1\)</span> estimated in full cohort</li>
+<li><strong>Estimators:</strong> <em>parametric</em> MLE based on subsample, raking</li>
+</ul>
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<p>Purple is assumed model; red is a smoother</p>
+
+<img data-src="data.png" class="r-stretch"></section>
+<section id="mle-has-lower-std-err" class="slide level2">
+<h2>MLE has lower std err</h2>
+
+<img data-src="se.png" class="r-stretch"></section>
+<section id="mle-can-have-bias" class="slide level2">
+<h2>MLE can have bias</h2>
+
+<img data-src="bias.png" class="r-stretch"></section>
+<section id="depends-on-assumptions" class="slide level2">
+<h2>Depends on assumptions</h2>
+
+<img data-src="rmse.png" class="r-stretch"></section></section>
+<section id="questions-1" class="title-slide slide level1 center">
+<h1>Questions?</h1>
+<p>Last chance!</p>
+</section>
+
+<section id="thats-all-folks" class="title-slide slide level1 center">
+<h1>That’s all, folks</h1>
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -732,6 +1957,44 @@ cc_design&lt;-twophase(id=list(~1,~1),
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
