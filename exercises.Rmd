@@ -1,0 +1,25 @@
+---
+title: "Exercises"
+author: "Thomas Lumley"
+date: "2026-07-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Session 1
+
+1. Following slides 23*ff*, define two-phase objects for the subsets of the API data in `apisrs` (a simple random sample) and `apiclus` (a one-stage cluster sample).  Estimate the means for `enroll` and `api00`.  Rake the designs on `api99` or `api.stu` or `stype` (which the stratified sample was stratified on) and combinations of these to see how the standard errors and the reductions in standard error compare.
+
+2. `tuynsc.txt` is the data behind `data(esoph)` in R, a case-control study of oesophageal cancer in men in Britanny. You can read it with:
+```
+tuyns<-read.table("tuynsc.txt", col.names=c("case","age","agegp","tobgp","tobacco","logtb","beer","cider",'wine',
+"aperitif","digestif","alcohol","logalc"))
+```
+Based on population size information, each control represents about 450 men in the population. Impute a population by repeating each control observation 450 times (yes, that's a lot but this isn't 1980 any more).  Define a `twophase` object and summarise the variables (useful functions: `svymean`, `svyhist`,`svyboxplot`, `update`, `svyplot`, `vcov`). You will want to make an `id` variable before expanding the data so you can use `!duplicated(id)` to pick out the first replicate of each observation as the real subsample. 
+
+3. Look at the case-cohort design in `?twophase`
+
+### Session 2
