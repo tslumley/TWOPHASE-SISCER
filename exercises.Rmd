@@ -20,6 +20,20 @@ tuyns<-read.table("tuynsc.txt", col.names=c("case","age","agegp","tobgp","tobacc
 ```
 Based on population size information, each control represents about 450 men in the population. Impute a population by repeating each control observation 450 times (yes, that's a lot but this isn't 1980 any more).  Define a `twophase` object and summarise the variables (useful functions: `svymean`, `svyhist`,`svyboxplot`, `update`, `svyplot`, `vcov`). You will want to make an `id` variable before expanding the data so you can use `!duplicated(id)` to pick out the first replicate of each observation as the real subsample. 
 
-3. Look at the case-cohort design in `?twophase`
+3. Look at the case-cohort design examples in `?twophase` to see if you understand them
 
 ### Session 2
+
+1.  In the case-cohort two-phase example in `?twophase`, ie, `dcchs` we have data on `instit`, `stage`, `age` and the outcome for everyone in the cohort
+
+  - rake the design on `instit` and fit the same Cox model. Compare the results
+  - rake the design on `edrel*rel` and fit the same Cox model. Compare the results
+  - fit a Cox model to phase 1 with `instit` instead of `histol` **for everyone**, extract the influence functions (`resid(model,type="dfbeta")`), and rake  (or use `calibrate(design, formula=model...`) and fit the same Cox model. Compare the results
+  - **THIS IS WRONG**: do the same as the previous question but use `histol` for the observations that are actually in phase 2 and `instit` only where `histol` is unavailable. **DO NOT DO THIS IN REAL LIFE**
+  
+### Session 3
+
+Come up with a better design for the Wilms' Tumour dataset?
+
+1. if you impute histology by institutional histology at the design stage
+2. if you assume that institutional histology was basically perfect when the true histology is `1` but was wrong about 25% of the time when true histology is `2` (specificity 100%, sensitivity 75% for unfavorable histology: this is close to true)
