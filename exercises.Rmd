@@ -33,7 +33,7 @@ Based on population size information, each control represents about 450 men in t
   
 ### Session 3
 
-Come up with a better design for the Wilms' Tumour dataset?
+Come up with a better design for the Wilms' Tumour dataset:
 
 1. if you impute histology by institutional histology at the design stage
 2. if you assume that institutional histology was basically perfect when the true histology is `1` but was wrong about 25% of the time when true histology is `2` (specificity 100%, sensitivity 75% for unfavorable histology: this is close to true)
