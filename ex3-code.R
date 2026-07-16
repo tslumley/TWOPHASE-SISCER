@@ -14,6 +14,12 @@ N_k<-with(nwtco, by(h_histol,strata,length))
 n<-1154
 round(n*sigma_k*N_k/sum(sigma_k*N_k))
 
+nleft<-n-406
+round(nleft*sigma_k[1:2]*N_k[1:2]/sum(sigma_k[1:2]*N_k[1:2]))
+
+
+
+
 ## just based on one-way error
 
 table(nwtco$instit)
@@ -37,6 +43,12 @@ n<-1154
 round(n*sigma_k*N_k/sum(sigma_k*N_k))
 
 
+nleft<-n-337
+round(nleft*sigma_k[-3]*N_k[-3]/sum(sigma_k[-3]*N_k[-3]))
+
+
+
+
 ## In fact, though, the extra unfavorable histology are probably relapses
 
 with(nwtco, table(rel,instit))
@@ -56,14 +68,20 @@ N_k<-with(nwtco, by(h_histol,strata3,length))
 n<-1154
 round(n*sigma_k*N_k/sum(sigma_k*N_k))
 
+
+nleft<-n-337
+round(nleft*sigma_k[-3]*N_k[-3]/sum(sigma_k[-3]*N_k[-3]))
+
+
+
 ## With optimall
 
 library(optimall)
 nwtco$h<-h_histol
 optimum_allocation(nwtco,strata="strata3",y="h",
   nsample=1154,method="Neyman")
-
 ## Neyman-Wright allocation
 optimum_allocation(nwtco,strata="strata3",y="h",nsample=1154)
+
 
 ## more different than I'd expect 
